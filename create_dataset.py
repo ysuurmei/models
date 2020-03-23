@@ -6,7 +6,7 @@ import numpy as np
 import shutil
 import progressbar
 
-def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = None, train_val_split=[0.9, 0.1]):
+def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = None, train_val_split=(0.9, 0.1)):
 
     train_set, val_set = [], []
 
@@ -19,7 +19,7 @@ def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = 
             print('Directory', directory, 'not found, creating directory....')
             os.mkdir(directory)
 
-    labels = pd.read_csv(os.path.join(root_folder, label_file), nrows=1000)
+    labels = pd.read_csv(os.path.join(root_folder, label_file))
 
     if subset:
         subset_rows = [int(i.split('_')[0]) in subset for i in labels['ClassId']]
@@ -66,12 +66,12 @@ def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = 
 if __name__ == '__main__':
 
     np.random.seed(1234)
-    DATA_FOLDER = r'C:/Users/YoupSuurmeijer/Downloads'
-    DATA_FILE = 'train/train.csv'
-    IMAGE_FOLDER = r'C:\Users\YoupSuurmeijer\Downloads\dl_dataset\SegmentationClass'
+    DATA_FOLDER = r'~/data_imat' # r'C:/Users/YoupSuurmeijer/Downloads'
+    DATA_FILE = 'train.csv' #'train/train.csv'
+    IMAGE_FOLDER = '~/data_imat/train' #r'C:\Users\YoupSuurmeijer\Downloads\dl_dataset\SegmentationClass'
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 
-    subset = ['pants', 'shorts', 'dress', 'shirt, blouse']
+    subset = ['pants', 'shorts', 'dress', 'shirt, blouse', 'sweater']
 
     with open(os.path.join(DATA_FOLDER, 'label_descriptions.json')) as json_data:
         label_descriptions = json.load(json_data)
