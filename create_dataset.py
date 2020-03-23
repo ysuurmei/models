@@ -40,14 +40,14 @@ def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = 
 
         mask = mask.reshape((height, width), order='F')
         mask_image = Image.fromarray(mask)
-        mask_image.save(os.path.join(subdir_class, image))
+        mask_image.save(os.path.join(subdir_class, os.path.splitext(image)[0]+".png"))
 
         draw = np.random.choice([0,1], 1, p=train_val_split)[0]
 
         if draw:
-            val_set.append(image)
+            val_set.append(os.path.splitext(image)[0])
         else:
-            train_set.append(image)
+            train_set.append(os.path.splitext(image)[0])
 
         shutil.copyfile(os.path.join(image_folder, image), os.path.join(subdir_images, image))
 
