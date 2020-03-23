@@ -66,9 +66,9 @@ def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = 
 if __name__ == '__main__':
 
     np.random.seed(1234)
-    DATA_FOLDER = r'~/data_imat' # r'C:/Users/YoupSuurmeijer/Downloads'
+    DATA_FOLDER = r'/home/ubuntu/data_imat' # r'C:/Users/YoupSuurmeijer/Downloads'
     DATA_FILE = 'train.csv' #'train/train.csv'
-    IMAGE_FOLDER = '~/data_imat/train' #r'C:\Users\YoupSuurmeijer\Downloads\dl_dataset\SegmentationClass'
+    IMAGE_FOLDER = '/home/ubuntu/data_imat/train' #r'C:\Users\YoupSuurmeijer\Downloads\dl_dataset\SegmentationClass'
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 
     subset = ['pants', 'shorts', 'dress', 'shirt, blouse', 'sweater']
