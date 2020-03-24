@@ -35,3 +35,4 @@ python "${WORK_DIR}"/train.py \
   --tf_initial_checkpoint="${INIT_FOLDER}/deeplabv3_pascal_train_aug/model.ckpt" \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}"
+  --dataset="imat_fashion"
