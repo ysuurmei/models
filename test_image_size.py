@@ -9,9 +9,9 @@ label_reader = ImageReader('png', channels=1)
 IMAGE_FOLDER = r"/home/ubuntu/data_imat/dl_dataset/JPEGImages"
 SEGMENTATION_FOLDER = r'/home/ubuntu/data_imat/dl_dataset/SegmentationClass'
 os.chdir(IMAGE_FOLDER)
-print(os.curdir)
+print('Current directory: ', os.curdir)
 
-for file in glob.glob('*.jpeg'):
+for file in glob.glob('*.jpg'):
     image_filename = os.path.join(
         IMAGE_FOLDER, file)
     seg_filename = os.path.join(
