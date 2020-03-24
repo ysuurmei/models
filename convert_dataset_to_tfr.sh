@@ -4,7 +4,6 @@ cd ..
 
 WORK_DIR="/home/ubuntu/data_imat/"
 PQR_ROOT="${WORK_DIR}/dl_dataset"
-SEG_FOLDER="${PQR_ROOT}/SegmentationClass"
 SEMANTIC_SEG_FOLDER="${PQR_ROOT}/SegmentationClass"
 # Build TFRecords of the dataset.
 OUTPUT_DIR="${WORK_DIR}/tfrecord"

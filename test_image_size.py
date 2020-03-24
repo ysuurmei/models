@@ -2,6 +2,8 @@ from research.deeplab.datasets.build_data import  ImageReader
 import tensorflow as tf
 import os
 import glob
+import progressbar
+
 print(glob.glob("/home/adam/*.txt"))
 image_reader = ImageReader('jpeg', channels=3)
 label_reader = ImageReader('png', channels=1)
@@ -11,7 +13,7 @@ SEGMENTATION_FOLDER = r'/home/ubuntu/data_imat/dl_dataset/SegmentationClass'
 os.chdir(IMAGE_FOLDER)
 print('Current directory: ', os.curdir)
 
-for file in glob.glob('*.jpg'):
+for file in  progressbar.progressbar(glob.glob('*.jpg')):
     image_filename = os.path.join(
         IMAGE_FOLDER, file)
     seg_filename = os.path.join(
