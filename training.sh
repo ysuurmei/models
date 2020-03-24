@@ -4,11 +4,11 @@ cd research
 export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 cd ..
 WORK_DIR="${CURRENT_DIR}/research/deeplab"
-DATASET_DIR="/home/ubuntu/data_imat/dl_dataset"
+DATASET_DIR="/home/ubuntu/data_imat"
 
 # Set up the working directories.
 NUM_ITERATIONS=20000
-PQR_FOLDER="PQR"
+PQR_FOLDER="dl_dataset/PQR"
 EXP_FOLDER="exp/train_on_trainval_set"
 INIT_FOLDER="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}/init_models"
 TRAIN_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}/train"
