@@ -332,6 +332,7 @@ class Dataset(object):
     """
 
     files = self._get_all_files()
+    print('FILES', files)
 
     dataset = (
         tf.data.TFRecordDataset(files, num_parallel_reads=self.num_readers)
