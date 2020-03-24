@@ -1,4 +1,4 @@
-import urllib
+from urllib import request
 import os
 import tarfile
 
@@ -19,7 +19,7 @@ _TARBALL_NAME = 'deeplab_model.tar.gz'
 _UNZIP_FOLDER = _MODEL_URLS[MODEL_NAME].split('_20')[0]
 download_path = os.path.join(r'/home/ubuntu/data_imat/dl_dataset/PQR/exp/train_on_trainval_set', _TARBALL_NAME)
 print('downloading model, this might take a while...')
-urllib.request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME],
+request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME],
                    download_path)
 
 print('download completed! Unpacking model in ', _UNZIP_FOLDER)
