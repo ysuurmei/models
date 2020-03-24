@@ -24,5 +24,5 @@ request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME],
 
 print('download completed! Unpacking model in ', _UNZIP_FOLDER)
 tar_file = tarfile.open(os.path.join(r'/home/ubuntu/data_imat/dl_dataset/PQR/exp/train_on_trainval_set', _TARBALL_NAME))
-tar_file.extractall(os.path.join(r'/home/ubuntu/data_imat/dl_dataset/PQR/exp/train_on_trainval_set', _UNZIP_FOLDER))
+tar_file.extractall()
 print('Extraction completed!')
