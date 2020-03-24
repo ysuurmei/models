@@ -293,7 +293,7 @@ class Dataset(object):
     """
     image = sample[common.IMAGE]
     label = sample[common.LABELS_CLASS]
-
+    print('test', image, label)
     original_image, image, label = input_preprocess.preprocess_image_and_label(
         image=image,
         label=label,
