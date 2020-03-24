@@ -9,6 +9,7 @@ label_reader = ImageReader('png', channels=1)
 IMAGE_FOLDER = r"/home/ubuntu/data_imat/dl_dataset/JPEGImages"
 SEGMENTATION_FOLDER = r'/home/ubuntu/data_imat/dl_dataset/SegmentationClass'
 os.chdir(IMAGE_FOLDER)
+print(os.curdir)
 
 for file in glob.glob('*.jpeg'):
     image_filename = os.path.join(
