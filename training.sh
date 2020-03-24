@@ -1,5 +1,8 @@
 # Set up the working environment.
 CURRENT_DIR=$(pwd)
+cd research
+export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+cd ..
 WORK_DIR="${CURRENT_DIR}/research/deeplab"
 DATASET_DIR="/home/ubuntu/data_imat/dl_dataset"
 
