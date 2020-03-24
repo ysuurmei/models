@@ -12,7 +12,7 @@ PQR_FOLDER="PQR"
 EXP_FOLDER="exp/train_on_trainval_set"
 INIT_FOLDER="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}/init_models"
 TRAIN_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}/train"
-DATASET="${DATASET_DIR}/${PQR_FOLDER}/tfrecord"
+DATASET="${DATASET_DIR}/tfrecord"
 
 mkdir -p "${DATASET_DIR}/${PQR_FOLDER}/exp"
 mkdir -p "${TRAIN_LOGDIR}"
