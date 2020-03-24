@@ -293,7 +293,6 @@ class Dataset(object):
     """
     image = sample[common.IMAGE]
     label = sample[common.LABELS_CLASS]
-    print('test', image, label)
     original_image, image, label = input_preprocess.preprocess_image_and_label(
         image=image,
         label=label,
@@ -332,7 +331,6 @@ class Dataset(object):
     """
 
     files = self._get_all_files()
-    print('FILES', files)
 
     dataset = (
         tf.data.TFRecordDataset(files, num_parallel_reads=self.num_readers)
