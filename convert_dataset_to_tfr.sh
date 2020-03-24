@@ -1,3 +1,7 @@
+cd research
+export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+cd ..
+
 WORK_DIR="/home/ubuntu/data_imat/"
 PQR_ROOT="${WORK_DIR}/dl_dataset"
 SEG_FOLDER="${PQR_ROOT}/SegmentationClass"
