@@ -4,6 +4,7 @@ WORK_DIR="${CURRENT_DIR}/research/deeplab"
 DATASET_DIR="/home/ubuntu/data_imat/dl_dataset"
 
 # Set up the working directories.
+NUM_ITERATIONS=20000
 PQR_FOLDER="PQR"
 EXP_FOLDER="exp/train_on_trainval_set"
 INIT_FOLDER="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}/init_models"
@@ -13,7 +14,7 @@ DATASET="${DATASET_DIR}/${PQR_FOLDER}/tfrecord"
 mkdir -p "${DATASET_DIR}/${PQR_FOLDER}/exp"
 mkdir -p "${TRAIN_LOGDIR}"
 
-NUM_ITERATIONS=90000
+
 python "${WORK_DIR}"/train.py \
   --logtostderr \
   --train_split="train" \
