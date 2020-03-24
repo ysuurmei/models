@@ -10,7 +10,7 @@ DATASET_DIR="/home/ubuntu/data_imat"
 NUM_ITERATIONS=20000
 PQR_FOLDER="dl_dataset/PQR"
 EXP_FOLDER="exp/train_on_trainval_set"
-INIT_FOLDER="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}/init_models"
+INIT_FOLDER="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}"
 TRAIN_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}/train"
 DATASET="${DATASET_DIR}/tfrecord"
 
@@ -34,4 +34,3 @@ python "${WORK_DIR}"/train.py \
   --tf_initial_checkpoint="${INIT_FOLDER}/deeplabv3_pascal_train_aug/model.ckpt" \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}"
-  --dataset="imat_fashion"
