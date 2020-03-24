@@ -17,15 +17,14 @@ for file in glob.glob('*.jpg'):
     seg_filename = os.path.join(
         SEGMENTATION_FOLDER,
         os.path.splitext(file)[0]+'.png')
-    print('Files: ', image_filename, seg_filename)
     image_data = tf.gfile.GFile(image_filename, 'rb').read()
     height, width = image_reader.read_image_dims(image_data)
 
     seg_data = tf.gfile.GFile(seg_filename, 'rb').read()
     seg_height, seg_width = label_reader.read_image_dims(seg_data)
     if height != seg_height or width != seg_width:
+        print('Files: ', image_filename, seg_filename)
         print('Error!')
         print(image_filename, height, width)
         print(seg_filename, seg_height, seg_width)
-    else:
-        print('OK!')
+
