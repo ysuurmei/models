@@ -27,8 +27,7 @@ python "${WORK_DIR}"/train.py \
   --atrous_rates=18 \
   --output_stride=16 \
   --decoder_output_stride=4 \
-  --train_crop_size=513 \
-  --train_crop_size=513 \
+  --train_crop_size=513,513 \
   --train_batch_size=4 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
   --fine_tune_batch_norm=true \
