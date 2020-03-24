@@ -16,7 +16,7 @@ for file in glob.glob('*.jpg'):
         IMAGE_FOLDER, file)
     seg_filename = os.path.join(
         SEGMENTATION_FOLDER,
-        os.path.splitext(file)[0])
+        os.path.splitext(file)[0]+'.png')
     print('Files: ', image_filename, seg_filename)
     image_data = tf.gfile.GFile(image_filename, 'rb').read()
     height, width = image_reader.read_image_dims(image_data)
