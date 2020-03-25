@@ -7,7 +7,7 @@ WORK_DIR="${CURRENT_DIR}/research/deeplab"
 DATASET_DIR="/home/ubuntu/data_imat"
 
 # Set up the working directories.
-NUM_ITERATIONS=20000
+NUM_ITERATIONS=500
 PQR_FOLDER="dl_dataset/PQR"
 EXP_FOLDER="exp/train_on_trainval_set"
 INIT_FOLDER="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}"
