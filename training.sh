@@ -7,7 +7,7 @@ WORK_DIR="${CURRENT_DIR}/research/deeplab"
 DATASET_DIR="/home/ubuntu/data_imat"
 
 # Set up the working directories.
-NUM_ITERATIONS=500
+NUM_ITERATIONS=10000
 PQR_FOLDER="dl_dataset/PQR"
 EXP_FOLDER="exp/train_on_trainval_set"
 INIT_FOLDER="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}"
@@ -30,7 +30,7 @@ python "${WORK_DIR}"/train.py \
   --train_crop_size=513,513 \
   --train_batch_size=1 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
-  --fine_tune_batch_norm=true \
+  --fine_tune_batch_norm=False \
   --tf_initial_checkpoint="${INIT_FOLDER}/deeplabv3_pascal_train_aug/model.ckpt" \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}"
