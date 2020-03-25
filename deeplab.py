@@ -10,7 +10,7 @@ class DeepLabModel(object):
 
   INPUT_TENSOR_NAME = 'ImageTensor:0'
   OUTPUT_TENSOR_NAME = 'SemanticPredictions:0'
-  INPUT_SIZE = 256
+  INPUT_SIZE = 513
   FROZEN_GRAPH_NAME = 'frozen_inference_graph'
 
   def __init__(self, tarball_path):

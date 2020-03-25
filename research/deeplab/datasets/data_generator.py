@@ -105,8 +105,9 @@ _IMAT_FASHION_INFORMATION = DatasetDescriptor(
         'val': 3602,  # num of samples in images/validation
         'trainval': 35566
     },
-    num_classes=5,
-    ignore_label=0,
+    num_classes=6, #num_classes = num of fore-ground object class count + 1 for background
+    #DO NOT SET ignore_label to 0!!!!
+    ignore_label=255, #marks the region that does not influence the calculation of loss and gradients. (thus, pay attention not to mark your object as 255)
 )
 
 _DATASETS_INFORMATION = {
