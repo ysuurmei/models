@@ -3,7 +3,7 @@ export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 cd ..
 
 python research/deeplab/export_model.py \
-  --checkpoint_path='/home/ubuntu/data_imat/dl_dataset/PQR/exp/train_on_trainval_set/train/model.ckpt-1000'  \
+  --checkpoint_path='/home/ubuntu/data_imat/dl_dataset/PQR/exp/train_on_trainval_set/train/model.ckpt-4343'  \
   --export_path=/home/ubuntu/data_imat/dl_dataset/PQR/exp/train_on_trainval_set/train/frozen_inference_graph.pb \
   --model_variant="xception_65" \
   --atrous_rates=6 \
