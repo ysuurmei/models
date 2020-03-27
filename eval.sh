@@ -14,9 +14,6 @@ INIT_FOLDER="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}"
 TRAIN_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}/train"
 DATASET="${DATASET_DIR}/tfrecord"
 
-mkdir -p "${DATASET_DIR}/${PQR_FOLDER}/exp"
-mkdir -p "${TRAIN_LOGDIR}"
-
 python "${WORK_DIR}"/eval.py \
 --logtostderr \
 --eval_split="val" \
@@ -26,7 +23,8 @@ python "${WORK_DIR}"/eval.py \
 --atrous_rates=18 \
 --output_stride=16 \
 --decoder_output_stride=4 \
---eval_crop_size=513,513 \
+--eval_crop_size=8689,10718 \
+--fine_tune_batch_norm=False \
 --checkpoint_dir="${TRAIN_LOGDIR}" \
 --eval_logdir="${EVAL_LOGDIR}" \
 --dataset_dir="${DATASET}" \
