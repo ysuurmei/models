@@ -6,7 +6,7 @@ import numpy as np
 import shutil
 import progressbar
 
-def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = None, train_val_split=(0.9, 0.1)):
+def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = None, train_val_split=(0.9, 0.1),input_size=512):
 
     train_set, val_set = [], []
 
@@ -38,10 +38,24 @@ def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = 
             for i, start_pixel in enumerate(annotation[::2]):
                 mask[start_pixel: start_pixel + annotation[2 * i + 1]] = row['ClassId'].split('_')[0]
 
+        #Create mask image
         mask = mask.reshape((height, width), order='F')
         mask_image = Image.fromarray(mask)
-        mask_image.save(os.path.join(subdir_class, os.path.splitext(image)[0]+".png"))
 
+        #Load actual image
+        rgb_image = Image.open(os.path.join(image_folder, image))
+        #Resize mask + actual image
+        width, height = image.size
+        resize_ratio = 1.0 * input_size / max(width, height)
+        target_size = (int(resize_ratio * width), int(resize_ratio * height))
+        rgb_image_resized = rgb_image.convert('RGB').resize(target_size, Image.ANTIALIAS)
+        mask_image_resized = mask_image.resize(target_size, Image.ANTIALIAS)
+
+        # Save mask + actual image
+        mask_image_resized.save(os.path.join(subdir_class, os.path.splitext(image)[0]+".png"))
+        rgb_image_resized.save(os.path.join(subdir_images, image))
+
+        #Randomly add them to train and validation sets
         draw = np.random.choice([0,1], 1, p=train_val_split)[0]
 
         if draw:
@@ -49,12 +63,11 @@ def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = 
         else:
             train_set.append(os.path.splitext(image)[0])
 
-        shutil.copyfile(os.path.join(image_folder, image), os.path.join(subdir_images, image))
-
     with open(os.path.join(subdir_sets, 'train.txt'), 'w') as f:
         for item in train_set:
             f.write("%s\n" % item)
 
+    # Write train, val and trainval sets to .txt files
     with open(os.path.join(subdir_sets, 'val.txt'), 'w') as f:
         for item in val_set:
             f.write("%s\n" % item)
@@ -71,7 +84,7 @@ if __name__ == '__main__':
     IMAGE_FOLDER = '/home/ubuntu/data_imat/train' #r'C:\Users\YoupSuurmeijer\Downloads\dl_dataset\SegmentationClass'
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 
-    subset = ['pants', 'shorts', 'dress', 'shirt, blouse', 'sweater']
+    subset = ['pants', 'dress', 'sweater']
 
     with open(os.path.join(DATA_FOLDER, 'label_descriptions.json')) as json_data:
         label_descriptions = json.load(json_data)
