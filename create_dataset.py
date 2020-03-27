@@ -87,7 +87,7 @@ if __name__ == '__main__':
     IMAGE_FOLDER = '/home/ubuntu/data_imat/train' #r'C:\Users\YoupSuurmeijer\Downloads\dl_dataset\SegmentationClass'
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 
-    subset = ['pants', 'dress', 'sweater']
+    subset = ['dress', 'sweater']
 
     with open(os.path.join(DATA_FOLDER, 'label_descriptions.json')) as json_data:
         label_descriptions = json.load(json_data)
