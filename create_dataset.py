@@ -28,10 +28,16 @@ def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = 
 
 
     for image in  progressbar.progressbar(labels['ImageId'].unique()):
+
+        #Load actual image
+        rgb_image = Image.open(os.path.join(image_folder, image))
+        width, height = rgb_image.size
+
+        #Subset all image labels and initialize mask
         image_labels = labels[labels['ImageId']==image]
-        width, height = image_labels['Width'].iloc[0], image_labels['Height'].iloc[0]
         mask = np.full(height * width, 0, dtype=np.uint8)
 
+        # Combine all image masks into a single segmmap
         for index, row in image_labels.iterrows():
             annotation = [int(x) for x in row['EncodedPixels'].split(' ')]
 
@@ -42,10 +48,7 @@ def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = 
         mask = mask.reshape((height, width), order='F')
         mask_image = Image.fromarray(mask)
 
-        #Load actual image
-        rgb_image = Image.open(os.path.join(image_folder, image))
-        #Resize mask + actual image
-        width, height = image.size
+        # Resize mask + actual image
         resize_ratio = 1.0 * input_size / max(width, height)
         target_size = (int(resize_ratio * width), int(resize_ratio * height))
         rgb_image_resized = rgb_image.convert('RGB').resize(target_size, Image.ANTIALIAS)
