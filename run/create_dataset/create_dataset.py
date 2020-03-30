@@ -104,7 +104,9 @@ if __name__ == '__main__':
     # Set the model version and data folder as environmental variables, so that we can pass them to the .sh script
     os.environ['DATA_FOLDER'] = '/home/ubuntu/data_imat/deeplab'
     os.environ['MODEL_VERSION'] = 'v1'
-
+    if not os._exists(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION'])):
+        os.makedirs(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION']))
+        
     # Set the location of the image files and labels
     DATA_FILE = 'train.csv'
     IMAGE_FOLDER = '/home/ubuntu/data_imat/train'

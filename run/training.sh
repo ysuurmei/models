@@ -1,4 +1,4 @@
-# NOTE! Run this shell script as sudo user else won't stop ec2 instance at the end
+# NOTE! Run this shell script as sudo user else won't stop ec2 instance at the end 'sudo bash training.sh'
 # Also run 'sudo source activate tensorflow_p36' instead of regular 'source activate ...'
 
 # Set up the working environment.
