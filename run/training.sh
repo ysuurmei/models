@@ -2,8 +2,9 @@
 # Also run 'sudo source activate tensorflow_p36' instead of regular 'source activate ...'
 
 # Set up the working environment.
+cd ..
 CURRENT_DIR=$(pwd)
-cd ../research
+cd research
 export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 cd ..
 
