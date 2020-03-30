@@ -55,7 +55,7 @@ Alan L. Yuille (* equal contribution)
 import collections
 import tensorflow as tf
 
-from deeplab import model
+from test.scripts.deeplab import model
 from feelvos import common
 from feelvos.utils import embedding_utils
 from feelvos.utils import train_utils

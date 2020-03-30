@@ -20,7 +20,7 @@ import six
 import tensorflow as tf
 from tensorflow.contrib import slim as contrib_slim
 
-from deeplab.core import xception
+from test.scripts.deeplab import xception
 from tensorflow.contrib.slim.nets import resnet_utils
 
 slim = contrib_slim

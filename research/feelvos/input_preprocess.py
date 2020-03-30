@@ -16,8 +16,8 @@
 """Prepare the data used for FEELVOS training/evaluation."""
 import tensorflow as tf
 
-from deeplab.core import feature_extractor
-from deeplab.core import preprocess_utils
+from test.scripts.deeplab import feature_extractor
+from test.scripts.deeplab import preprocess_utils
 
 # The probability of flipping the images and labels
 # left-right during training

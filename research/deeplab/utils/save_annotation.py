@@ -23,7 +23,7 @@ import numpy as np
 import PIL.Image as img
 import tensorflow as tf
 
-from deeplab.utils import get_dataset_colormap
+from test.scripts.deeplab import get_dataset_colormap
 
 
 def save_annotation(label,

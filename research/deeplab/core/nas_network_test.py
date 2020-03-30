@@ -26,8 +26,8 @@ from tensorflow.contrib import framework as contrib_framework
 from tensorflow.contrib import slim as contrib_slim
 from tensorflow.contrib import training as contrib_training
 
-from deeplab.core import nas_genotypes
-from deeplab.core import nas_network
+from test.scripts.deeplab import nas_genotypes
+from test.scripts.deeplab import nas_network
 
 arg_scope = contrib_framework.arg_scope
 slim = contrib_slim

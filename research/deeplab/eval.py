@@ -25,9 +25,9 @@ from tensorflow.contrib import metrics as contrib_metrics
 from tensorflow.contrib import quantize as contrib_quantize
 from tensorflow.contrib import tfprof as contrib_tfprof
 from tensorflow.contrib import training as contrib_training
-from deeplab import common
-from deeplab import model
-from deeplab.datasets import data_generator
+from test.scripts.deeplab import common
+from test.scripts.deeplab import model
+from test.scripts.deeplab import data_generator
 
 flags = tf.app.flags
 FLAGS = flags.FLAGS

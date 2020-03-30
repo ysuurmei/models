@@ -25,10 +25,10 @@ import six
 import tensorflow as tf
 from tensorflow.contrib import quantize as contrib_quantize
 from tensorflow.contrib import tfprof as contrib_tfprof
-from deeplab import common
-from deeplab import model
-from deeplab.datasets import data_generator
-from deeplab.utils import train_utils
+from test.scripts.deeplab import common
+from test.scripts.deeplab import model
+from test.scripts.deeplab import data_generator
+from test.scripts.deeplab import train_utils
 from deployment import model_deploy
 
 slim = tf.contrib.slim

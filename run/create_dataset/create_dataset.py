@@ -6,27 +6,30 @@ import numpy as np
 import shutil
 import progressbar
 
-def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = None, train_val_split=(0.9, 0.1),input_size=512):
-
+def create_deeplab_dataset(model_version, root_folder, label_file, image_folder=None, subset = None, train_val_split=(0.9, 0.1),input_size=512):
+    # initialize the training and validation subsets
     train_set, val_set = [], []
 
-    subdir_sets = os.path.join(root_folder, 'dl_dataset', 'ImageSets')
-    subdir_images = os.path.join(root_folder, 'dl_dataset', 'JPEGImages')
-    subdir_class = os.path.join(root_folder, 'dl_dataset', 'SegmentationClass')
+    # initialize the required subdirectories and create them if they do not already exists
+    subdir_sets = os.path.join(root_folder, model_version, 'ImageSets')
+    subdir_images = os.path.join(root_folder, model_version, 'JPEGImages')
+    subdir_class = os.path.join(root_folder, model_version, 'SegmentationClass')
 
-    for directory in [os.path.join(root_folder, 'dl_dataset'), subdir_sets, subdir_images, subdir_class]:
+    for directory in [os.path.join(root_folder, model_version), subdir_sets, subdir_images, subdir_class]:
         if not os.path.exists(directory):
             print('Directory', directory, 'not found, creating directory....')
             os.mkdir(directory)
 
+    # Read the labels file in a dataframe
     labels = pd.read_csv(os.path.join(root_folder, label_file))
 
+    # If required subset the dataset
     if subset:
         subset_rows = [int(i.split('_')[0]) in subset for i in labels['ClassId']]
         labels = labels[subset_rows]
         print('Subsetting dataset, using {} images'.format(len(labels['ImageId'].unique())))
 
-
+    # Loop through each image in the labels file and create the segmap and save to train/val set
     for image in  progressbar.progressbar(labels['ImageId'].unique()):
 
         #Load actual image
@@ -66,11 +69,11 @@ def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = 
         else:
             train_set.append(os.path.splitext(image)[0])
 
+    # Write train, val and trainval sets to .txt files
     with open(os.path.join(subdir_sets, 'train.txt'), 'w') as f:
         for item in train_set:
             f.write("%s\n" % item)
 
-    # Write train, val and trainval sets to .txt files
     with open(os.path.join(subdir_sets, 'val.txt'), 'w') as f:
         for item in val_set:
             f.write("%s\n" % item)
@@ -81,19 +84,31 @@ def create_deeplab_dataset(root_folder, label_file, image_folder=None, subset = 
 
 if __name__ == '__main__':
 
+    # Set the seed to pin the random selection of train/val split
     np.random.seed(1234)
-    DATA_FOLDER = r'/home/ubuntu/data_imat' # r'C:/Users/YoupSuurmeijer/Downloads'
-    DATA_FILE = 'train.csv' #'train/train.csv'
-    IMAGE_FOLDER = '/home/ubuntu/data_imat/train' #r'C:\Users\YoupSuurmeijer\Downloads\dl_dataset\SegmentationClass'
+
+    # Set the model version and data folder as environmental variables, so that we can pass them to the .sh script
+    os.environ['DATA_FOLDER'] = r'/home/ubuntu/data_imat'
+    os.environ['MODEL_VERSION'] = r'deeplab/v1'
+
+    # Set the location of the image files and labels
+    DATA_FILE = 'train.csv'
+    IMAGE_FOLDER = '/home/ubuntu/data_imat/train'
+
+    # Set the parameters for the new dataset
+    SUBSET = ['jumpsuit']
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 
-    subset = ['dress', 'sweater']
-
-    with open(os.path.join(DATA_FOLDER, 'label_descriptions.json')) as json_data:
+    # Load the label descripions file and subset the dataset based on the label description indices
+    with open(os.path.join(os.environ['DATA_FOLDER'], 'label_descriptions.json')) as json_data:
         label_descriptions = json.load(json_data)
 
-    subset_indices = [i['id'] for i in label_descriptions['categories'] if i['name'] in subset]
+    subset_indices = [i['id'] for i in label_descriptions['categories'] if i['name'] in SUBSET]
 
-    create_deeplab_dataset(root_folder=DATA_FOLDER, label_file=DATA_FILE,
-                           image_folder=IMAGE_FOLDER, subset=subset_indices)
+    # Create the dataset in deeplab format
+    create_deeplab_dataset(model_version=os.environ['MODEL_VERSION'], root_folder=os.environ['DATA_FOLDER'],
+                           label_file=DATA_FILE, image_folder=IMAGE_FOLDER, subset=subset_indices)
+
+    # Run the shell script to convert the deeplab dataset to TFrecord format
+    os.system('./convert_dataset_to_tfr.sh $MODEL_VERSION $DATA_FOLDER')
 

@@ -19,7 +19,7 @@ Common flags from train/vis_video.py are collected in this script.
 """
 import tensorflow as tf
 
-from deeplab import common
+from test.scripts.deeplab import common
 
 flags = tf.app.flags
 

@@ -18,8 +18,8 @@ import collections
 import six
 import tensorflow as tf
 
-from deeplab.core import preprocess_utils
-from deeplab.utils import train_utils
+from test.scripts.deeplab import preprocess_utils
+from test.scripts.deeplab import train_utils
 from feelvos.utils import embedding_utils
 from feelvos.utils import eval_utils
 

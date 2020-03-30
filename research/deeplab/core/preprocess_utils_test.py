@@ -23,7 +23,7 @@ import numpy as np
 from six.moves import range
 import tensorflow as tf
 
-from deeplab.core import preprocess_utils
+from test.scripts.deeplab import preprocess_utils
 
 
 class PreprocessUtilsTest(tf.test.TestCase):

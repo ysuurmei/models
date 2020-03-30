@@ -21,9 +21,9 @@ import functools
 import tensorflow as tf
 from tensorflow.contrib import slim as contrib_slim
 
-from deeplab.core import nas_network
-from deeplab.core import resnet_v1_beta
-from deeplab.core import xception
+from test.scripts.deeplab import nas_network
+from test.scripts.deeplab import resnet_v1_beta
+from test.scripts.deeplab import xception
 from nets.mobilenet import conv_blocks
 from nets.mobilenet import mobilenet
 from nets.mobilenet import mobilenet_v2

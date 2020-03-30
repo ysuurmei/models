@@ -17,8 +17,8 @@
 
 import numpy as np
 import tensorflow as tf
-from deeplab import model
-from deeplab.core import preprocess_utils
+from test.scripts.deeplab import model
+from test.scripts.deeplab import preprocess_utils
 from feelvos.utils import mask_damaging
 
 slim = tf.contrib.slim

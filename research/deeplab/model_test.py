@@ -18,8 +18,8 @@
 
 import tensorflow as tf
 
-from deeplab import common
-from deeplab import model
+from test.scripts.deeplab import common
+from test.scripts.deeplab import model
 
 
 class DeeplabModelTest(tf.test.TestCase):

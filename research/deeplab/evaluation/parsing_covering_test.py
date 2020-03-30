@@ -24,8 +24,8 @@ from __future__ import print_function
 from absl.testing import absltest
 import numpy as np
 
-from deeplab.evaluation import parsing_covering
-from deeplab.evaluation import test_utils
+from test.scripts.deeplab import parsing_covering
+from test.scripts.deeplab import test_utils
 
 # See the definition of the color names at:
 #   https://en.wikipedia.org/wiki/Web_colors.
