@@ -4,12 +4,16 @@ import os
 import glob
 import progressbar
 
-print(glob.glob("/home/adam/*.txt"))
+
+
+DATA_FOLDER = '/home/ubuntu/data_imat'
+MODEL_VERSION = 'deeplab/v1'
+
+IMAGE_FOLDER = os.path.join(DATA_FOLDER, MODEL_VERSION, "JPEGImages")
+SEGMENTATION_FOLDER = os.path.join(DATA_FOLDER, MODEL_VERSION, "SegmentationClass")
+
 image_reader = ImageReader('jpeg', channels=3)
 label_reader = ImageReader('png', channels=1)
-
-IMAGE_FOLDER = r"/home/ubuntu/data_imat/dl_dataset/JPEGImages"
-SEGMENTATION_FOLDER = r'/home/ubuntu/data_imat/dl_dataset/SegmentationClass'
 os.chdir(IMAGE_FOLDER)
 print('Current directory: ', os.curdir)
 

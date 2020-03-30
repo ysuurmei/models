@@ -128,8 +128,11 @@ if __name__ == '__main__':
     )
     # Create the dataset in deeplab format
     create_deeplab_dataset(model_version=os.environ['MODEL_VERSION'], root_folder=os.environ['DATA_FOLDER'],
-                           label_file=DATA_FILE, image_folder=IMAGE_FOLDER, subset=subset_indices)
+                           label_file=DATA_FILE, image_folder=IMAGE_FOLDER,
+                           subset=subset_indices, version_info=version_info)
 
     # Run the shell script to convert the deeplab dataset to TFrecord format
     os.system('./convert_dataset_to_tfr.sh $DATA_FOLDER $MODEL_VERSION')
+    # NOTE in case of permission issues run following command to change file permissions
+    # 'chmod a+x convert_dataset_to_tfr.sh'
 
