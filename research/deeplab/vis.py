@@ -28,10 +28,10 @@ from six.moves import range
 import tensorflow as tf
 from tensorflow.contrib import quantize as contrib_quantize
 from tensorflow.contrib import training as contrib_training
-from test.scripts.deeplab import common
-from test.scripts.deeplab import model
-from test.scripts.deeplab import data_generator
-from test.scripts.deeplab import save_annotation
+from deeplab import common
+from deeplab import model
+from deeplab.datasets import data_generator
+from deeplab.utils import save_annotation
 
 flags = tf.app.flags
 

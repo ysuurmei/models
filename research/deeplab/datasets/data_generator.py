@@ -52,8 +52,8 @@ References:
 import collections
 import os
 import tensorflow as tf
-from test.scripts.deeplab import common
-from test.scripts.deeplab import input_preprocess
+from deeplab import common
+from deeplab import input_preprocess
 
 # Named tuple to describe the dataset properties.
 DatasetDescriptor = collections.namedtuple(

@@ -24,7 +24,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.contrib import framework as contrib_framework
 from tensorflow.contrib import layers as contrib_layers
-from test.scripts.deeplab import conv2d_ws
+from deeplab.core import conv2d_ws
 
 
 class ConvolutionTest(tf.test.TestCase):

@@ -41,9 +41,9 @@ from tensorflow.contrib import layers as contrib_layers
 from tensorflow.contrib import slim as contrib_slim
 from tensorflow.contrib import training as contrib_training
 
-from test.scripts.deeplab import nas_genotypes
-from test.scripts.deeplab import utils
-from test.scripts.deeplab import NASBaseCell
+from deeplab.core import nas_genotypes
+from deeplab.core import utils
+from deeplab.core.nas_cell import NASBaseCell
 from tensorflow.contrib.slim.nets import resnet_utils
 
 arg_scope = contrib_framework.arg_scope

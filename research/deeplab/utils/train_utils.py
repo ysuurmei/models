@@ -19,8 +19,8 @@ import six
 import tensorflow as tf
 from tensorflow.contrib import framework as contrib_framework
 
-from test.scripts.deeplab import preprocess_utils
-from test.scripts.deeplab import utils
+from deeplab.core import preprocess_utils
+from deeplab.core import utils
 
 
 def _div_maybe_zero(total_loss, num_present):

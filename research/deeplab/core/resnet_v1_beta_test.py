@@ -27,7 +27,7 @@ import six
 import tensorflow as tf
 from tensorflow.contrib import slim as contrib_slim
 
-from test.scripts.deeplab import resnet_v1_beta
+from deeplab.core import resnet_v1_beta
 from tensorflow.contrib.slim.nets import resnet_utils
 
 slim = contrib_slim

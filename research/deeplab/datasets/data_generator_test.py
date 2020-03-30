@@ -24,8 +24,8 @@ import collections
 from six.moves import range
 import tensorflow as tf
 
-from test.scripts.deeplab import common
-from test.scripts.deeplab import data_generator
+from deeplab import common
+from deeplab.datasets import data_generator
 
 ImageAttributes = collections.namedtuple(
     'ImageAttributes', ['image', 'label', 'height', 'width', 'image_name'])

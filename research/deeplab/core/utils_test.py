@@ -18,7 +18,7 @@
 import numpy as np
 import tensorflow as tf
 
-from test.scripts.deeplab import utils
+from deeplab.core import utils
 
 
 class UtilsTest(tf.test.TestCase):

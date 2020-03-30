@@ -18,7 +18,7 @@ import copy
 
 import tensorflow as tf
 
-from test.scripts.deeplab import common
+from deeplab import common
 
 
 class CommonTest(tf.test.TestCase):

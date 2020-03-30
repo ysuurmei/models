@@ -25,7 +25,7 @@ from absl import flags
 from absl.testing import absltest
 import evaluation as panopticapi_eval
 
-from test.scripts.deeplab import eval_coco_format
+from deeplab.evaluation import eval_coco_format
 
 _TEST_DIR = 'deeplab/evaluation/testdata'
 

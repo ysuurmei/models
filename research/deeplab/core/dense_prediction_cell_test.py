@@ -22,7 +22,7 @@ from __future__ import print_function
 
 import tensorflow as tf
 
-from test.scripts.deeplab import dense_prediction_cell
+from deeplab.core import dense_prediction_cell
 
 
 class DensePredictionCellTest(tf.test.TestCase):

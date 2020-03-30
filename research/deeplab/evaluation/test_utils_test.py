@@ -24,7 +24,7 @@ from __future__ import print_function
 from absl.testing import absltest
 import numpy as np
 
-from test.scripts.deeplab import test_utils
+from deeplab.evaluation import test_utils
 
 
 class TestUtilsTest(absltest.TestCase):

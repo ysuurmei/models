@@ -24,8 +24,8 @@ from absl.testing import absltest
 import numpy as np
 import six
 
-from test.scripts.deeplab import panoptic_quality
-from test.scripts.deeplab import test_utils
+from deeplab.evaluation import panoptic_quality
+from deeplab.evaluation import test_utils
 
 # See the definition of the color names at:
 #   https://en.wikipedia.org/wiki/Web_colors.

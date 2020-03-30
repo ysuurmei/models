@@ -31,8 +31,8 @@ import functools
 from six.moves import range
 import tensorflow as tf
 from tensorflow.contrib import slim as contrib_slim
-from test.scripts.deeplab import conv2d_ws
-from test.scripts.deeplab import utils
+from deeplab.core import conv2d_ws
+from deeplab.core import utils
 from tensorflow.contrib.slim.nets import resnet_utils
 
 slim = contrib_slim

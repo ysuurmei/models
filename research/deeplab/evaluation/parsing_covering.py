@@ -34,7 +34,7 @@ import numpy as np
 import prettytable
 import six
 
-from test.scripts.deeplab import base_metric
+from deeplab.evaluation import base_metric
 
 
 class ParsingCovering(base_metric.SegmentationMetric):

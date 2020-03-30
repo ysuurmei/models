@@ -20,9 +20,9 @@ import tensorflow as tf
 
 from tensorflow.contrib import quantize as contrib_quantize
 from tensorflow.python.tools import freeze_graph
-from test.scripts.deeplab import common
-from test.scripts.deeplab import input_preprocess
-from test.scripts.deeplab import model
+from deeplab import common
+from deeplab import input_preprocess
+from deeplab import model
 
 slim = tf.contrib.slim
 flags = tf.app.flags
