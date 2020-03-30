@@ -131,5 +131,5 @@ if __name__ == '__main__':
                            label_file=DATA_FILE, image_folder=IMAGE_FOLDER, subset=subset_indices)
 
     # Run the shell script to convert the deeplab dataset to TFrecord format
-    os.system('./convert_dataset_to_tfr.sh $MODEL_VERSION $DATA_FOLDER')
+    os.system('./convert_dataset_to_tfr.sh $DATA_FOLDER $MODEL_VERSION')
 
