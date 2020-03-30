@@ -1,24 +1,30 @@
 # Set up the working environment.
 CURRENT_DIR=$(pwd)
-cd research
+cd ../research
 export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 cd ..
-WORK_DIR="${CURRENT_DIR}/research/deeplab"
-DATASET_DIR="/home/ubuntu/data_imat"
 
-# Set up the working directories.
+# Set working directory and version and iteration configs
+WORK_DIR='/home/ubuntu/data_imat/deeplab'
+MODEL_VERSION = 'v1'
 NUM_ITERATIONS=40000
-PQR_FOLDER="dl_dataset/PQR"
-EXP_FOLDER="exp/train_on_trainval_set"
-INIT_FOLDER="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}"
-TRAIN_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}/train"
+
+# Set up folder structure
+DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
+PQR_FOLDER="PQR"
+INIT_FOLDER="${WORK_DIR}/pretrained"
+TRAIN_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/train"
 DATASET="${DATASET_DIR}/tfrecord"
 
-mkdir -p "${DATASET_DIR}/${PQR_FOLDER}/exp"
+# Create directories
+mkdir -p "${DATASET_DIR}/${PQR_FOLDER}"
 mkdir -p "${TRAIN_LOGDIR}"
 
+# copy this file as training_settings to directory head (for reference)
+cp run/training.sh "${DATASET_DIR}/training_settings.txt"
 
-python "${WORK_DIR}"/train.py \
+# Run the python training script
+python research/deeplab/train.py \
   --logtostderr \
   --train_split="train" \
   --model_variant="xception_65" \
@@ -34,5 +40,7 @@ python "${WORK_DIR}"/train.py \
   --tf_initial_checkpoint="${INIT_FOLDER}/deeplabv3_pascal_train_aug/model.ckpt" \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}"
+
+shutdown -h now
 
 

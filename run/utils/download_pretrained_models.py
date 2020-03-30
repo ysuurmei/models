@@ -2,6 +2,12 @@ from urllib import request
 import os
 import tarfile
 
+DOWNLOAD_PATH = r'/home/ubuntu/data_imat/deeplab/pretrained'
+
+if not os.path.exists(DOWNLOAD_PATH):
+    print('Directory', DOWNLOAD_PATH, 'not found, creating directory....')
+    os.makedirs(DOWNLOAD_PATH)
+
 MODEL_NAME = 'xception_coco_voctrainaug'  # @param ['mobilenetv2_coco_voctrainaug', 'mobilenetv2_coco_voctrainval', 'xception_coco_voctrainaug', 'xception_coco_voctrainval']
 
 _DOWNLOAD_URL_PREFIX = 'http://download.tensorflow.org/models/'
@@ -19,13 +25,13 @@ _TARBALL_NAME = 'deeplab_model.tar.gz'
 _UNZIP_FOLDER = _MODEL_URLS[MODEL_NAME].split('_20')[0]
 
 # Set download path here!
-download_path = os.path.join(r'/home/ubuntu/data_imat/dl_dataset/PQR/exp/train_on_trainval_set', _TARBALL_NAME)
+file_path = os.path.join(DOWNLOAD_PATH, _TARBALL_NAME)
 
 print('downloading model, this might take a while...')
 request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME],
-                   download_path)
+                   file_path)
 
 print('download completed! Unpacking model in ', _UNZIP_FOLDER)
-tar_file = tarfile.open(os.path.join(r'/home/ubuntu/data_imat/dl_dataset/PQR/exp/train_on_trainval_set', _TARBALL_NAME))
-tar_file.extractall(r'/home/ubuntu/data_imat/dl_dataset/PQR/exp/train_on_trainval_set')
+tar_file = tarfile.open(file_path)
+tar_file.extractall(os.path.join(DOWNLOAD_PATH, _UNZIP_FOLDER))l
 print('Extraction completed!')

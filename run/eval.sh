@@ -1,20 +1,21 @@
 # Set up the working environment.
-CURRENT_DIR=$(pwd)
-cd research
+cd ../research
 export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 cd ..
-WORK_DIR="${CURRENT_DIR}/research/deeplab"
-DATASET_DIR="/home/ubuntu/data_imat"
+CURRENT_DIR=$(pwd)
 
-# Set up the working directories.
-NUM_ITERATIONS=10000
-PQR_FOLDER="dl_dataset/PQR"
-EXP_FOLDER="exp/train_on_trainval_set"
-INIT_FOLDER="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}"
-TRAIN_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/${EXP_FOLDER}/train"
+# Set up folder structure
+WORK_DIR="${CURRENT_DIR}/research/deeplab"
+DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
+PQR_FOLDER="PQR"
+INIT_FOLDER="${WORK_DIR}/pretrained"
+TRAIN_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/train"
+EVAL_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/eval"
 DATASET="${DATASET_DIR}/tfrecord"
 
-python "${WORK_DIR}"/eval.py \
+mkdir -p "${EVAL_LOGDIR}"
+
+python research/deeplab/train.py/eval.py \
 --logtostderr \
 --eval_split="val" \
 --model_variant="xception_65" \
