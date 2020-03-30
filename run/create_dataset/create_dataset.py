@@ -88,8 +88,8 @@ if __name__ == '__main__':
     np.random.seed(1234)
 
     # Set the model version and data folder as environmental variables, so that we can pass them to the .sh script
-    os.environ['DATA_FOLDER'] = r'~/data_imat'
-    os.environ['MODEL_VERSION'] = r'deeplab/v1'
+    os.environ['DATA_FOLDER'] = '/home/ubuntu/data_imat'
+    os.environ['MODEL_VERSION'] = 'deeplab/v1'
 
     # Set the location of the image files and labels
     DATA_FILE = 'train.csv'
