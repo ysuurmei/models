@@ -18,7 +18,7 @@ def create_deeplab_dataset(model_version, root_folder, label_file, image_folder=
     for directory in [os.path.join(root_folder, model_version), subdir_sets, subdir_images, subdir_class]:
         if not os.path.exists(directory):
             print('Directory', directory, 'not found, creating directory....')
-            os.mkdir(directory)
+            os.makedirs(directory)
 
     # Read the labels file in a dataframe
     labels = pd.read_csv(os.path.join(root_folder, label_file))
