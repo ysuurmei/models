@@ -6,7 +6,8 @@ import numpy as np
 import shutil
 import progressbar
 
-def create_deeplab_dataset(model_version, root_folder, label_file, image_folder=None, subset = None, train_val_split=(0.9, 0.1),input_size=512):
+def create_deeplab_dataset(model_version, root_folder, label_file, image_folder=None, subset = None,
+                           train_val_split=(0.9, 0.1),input_size=512, version_info=None):
     # initialize the training and validation subsets
     train_set, val_set = [], []
 
@@ -19,6 +20,17 @@ def create_deeplab_dataset(model_version, root_folder, label_file, image_folder=
         if not os.path.exists(directory):
             print('Directory', directory, 'not found, creating directory....')
             os.makedirs(directory)
+        else:
+            print('Directory', directory, 'already exists, clearing out existing files')
+            try:
+                shutil.rmtree(directory)
+            except:
+                pass
+
+    # If version info is provided write info to text file in folder root directory
+    if version_info:
+        with open(os.path.join(root_folder, model_version, 'version_info.txt'), 'w') as f:
+            f.write(version_info)
 
     # Read the labels file in a dataframe
     labels = pd.read_csv(os.path.join(root_folder, label_file))
@@ -83,9 +95,11 @@ def create_deeplab_dataset(model_version, root_folder, label_file, image_folder=
             f.write("%s\n" % item)
 
 if __name__ == '__main__':
+    from datetime import datetime
 
     # Set the seed to pin the random selection of train/val split
-    np.random.seed(1234)
+    SEED = 1234
+    np.random.seed(SEED)
 
     # Set the model version and data folder as environmental variables, so that we can pass them to the .sh script
     os.environ['DATA_FOLDER'] = '/home/ubuntu/data_imat'
@@ -105,6 +119,13 @@ if __name__ == '__main__':
 
     subset_indices = [i['id'] for i in label_descriptions['categories'] if i['name'] in SUBSET]
 
+    version_info = 'Version: {} \n Ceated on: {} \n Subset: {} \n train/val split: {} \n seed: {}'.format(
+        os.environ['MODEL_VERSION'],
+        datetime.now().strftime("%m/%d/%Y, %H:%M:%S"),
+        str(SUBSET),
+        str(TRAIN_VAL_SPLIT),
+        SEED
+    )
     # Create the dataset in deeplab format
     create_deeplab_dataset(model_version=os.environ['MODEL_VERSION'], root_folder=os.environ['DATA_FOLDER'],
                            label_file=DATA_FILE, image_folder=IMAGE_FOLDER, subset=subset_indices)
