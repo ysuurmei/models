@@ -101,9 +101,9 @@ _ADE20K_INFORMATION = DatasetDescriptor(
 
 _IMAT_FASHION_INFORMATION = DatasetDescriptor(
     splits_to_sizes={
-        'train': 31964,  # num of samples in images/training ubuntu vim command: ':echo line('$')'
-        'val': 3602,  # num of samples in images/validation
-        'trainval': 35566
+        'train': 39433,  # num of samples in images/training ubuntu vim command: ':echo line('$')'
+        'val': 4463,  # num of samples in images/validation
+        'trainval': 43896
     },
     num_classes=10, #num_classes = num of fore-ground object class count + 1 for background
     #DO NOT SET ignore_label to 0!!!!
