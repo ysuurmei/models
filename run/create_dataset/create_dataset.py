@@ -102,21 +102,21 @@ if __name__ == '__main__':
     np.random.seed(SEED)
 
     # Set the model version and data folder as environmental variables, so that we can pass them to the .sh script
-    os.environ['DATA_FOLDER'] = '/home/ubuntu/data_imat/deeplab'
-    os.environ['MODEL_VERSION'] = 'v1'
+    os.environ['DATA_FOLDER'] = '/home/ubuntu/data_imat'
+    os.environ['MODEL_VERSION'] = 'deeplab/v1'
     if not os._exists(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION'])):
         os.makedirs(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION']))
-        
+
     # Set the location of the image files and labels
     DATA_FILE = 'train.csv'
-    IMAGE_FOLDER = '/home/ubuntu/data_imat/train'
+    IMAGE_FOLDER = os.path.join(os.environ['DATA_FOLDER'], 'train')
 
     # Set the parameters for the new dataset
     SUBSET = ['jumpsuit']
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 
     # Load the label descripions file and subset the dataset based on the label description indices
-    with open(os.path.join(os.environ['DATA_FOLDER'], '..', 'label_descriptions.json')) as json_data:
+    with open(os.path.join(os.environ['DATA_FOLDER'], 'label_descriptions.json')) as json_data:
         label_descriptions = json.load(json_data)
 
     subset_indices = [i['id'] for i in label_descriptions['categories'] if i['name'] in SUBSET]
