@@ -33,5 +33,5 @@ request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME],
 
 print('download completed! Unpacking model in ', _UNZIP_FOLDER)
 tar_file = tarfile.open(file_path)
-tar_file.extractall(os.path.join(DOWNLOAD_PATH, _UNZIP_FOLDER))l
+tar_file.extractall(os.path.join(DOWNLOAD_PATH, _UNZIP_FOLDER))
 print('Extraction completed!')
