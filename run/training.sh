@@ -9,7 +9,7 @@ cd ..
 
 # Set working directory and version and iteration configs
 WORK_DIR='/home/ubuntu/data_imat/deeplab'
-MODEL_VERSION = 'v1'
+MODEL_VERSION='v1'
 NUM_ITERATIONS=40000
 
 # Set up folder structure
@@ -44,6 +44,5 @@ python research/deeplab/train.py \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}"
 
-shutdown -h now
 
 
