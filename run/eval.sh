@@ -15,7 +15,7 @@ DATASET="${DATASET_DIR}/tfrecord"
 
 mkdir -p "${EVAL_LOGDIR}"
 
-python research/deeplab/train.py/eval.py \
+python research/deeplab/eval.py \
 --logtostderr \
 --eval_split="val" \
 --model_variant="xception_65" \
