@@ -16,6 +16,10 @@ DATASET="${DATASET_DIR}/tfrecord"
 
 mkdir -p "${EVAL_LOGDIR}"
 
+echo "${TRAIN_LOGDIR}"
+echo "${EVAL_LOGDIR}"
+echo "${DATASET}"
+
 python research/deeplab/eval.py \
 --logtostderr \
 --eval_split="val" \
