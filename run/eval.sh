@@ -6,7 +6,7 @@ CURRENT_DIR=$(pwd)
 
 # Set up folder structure
 MODEL_VERSION="v1"
-WORK_DIR="/home/ubuntu/data_imat/deeplab"
+WORK_DIR="${CURRENT_DIR}/research/deeplab"
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
 PQR_FOLDER="PQR"
 INIT_FOLDER="${WORK_DIR}/pretrained"
@@ -15,10 +15,6 @@ EVAL_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/eval"
 DATASET="${DATASET_DIR}/tfrecord"
 
 mkdir -p "${EVAL_LOGDIR}"
-
-echo "${TRAIN_LOGDIR}"
-echo "${EVAL_LOGDIR}"
-echo "${DATASET}"
 
 python research/deeplab/eval.py \
 --logtostderr \
