@@ -33,4 +33,4 @@ python research/deeplab/export_model.py \
   --output_stride=16
 
 tar -czvf "model_${MODEL_VERSION}_${CHECKPOINT}.tar.gz" "${CHECKPOINT_PATH}.data-00000-of-00001" \
-"${CHECKPOINT_PATH}.meta" "${CHECKPOINT_PATH}.index" "frozen_inference_graph_${CHECKPOINT_PATH}.pb"
+"${CHECKPOINT_PATH}.meta" "${CHECKPOINT_PATH}.index" "${EXPORT_PATH}"
