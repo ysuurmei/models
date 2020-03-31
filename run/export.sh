@@ -14,14 +14,14 @@ CHECKPOINT="50000"
 CHECKPOINT_PATH="${TRAIN_LOGDIR}/model.ckpt-${CHECKPOINT}"
 EXPORT_PATH="${TRAIN_LOGDIR}/frozen_inference_graph_${CHECKPOINT}.pb"
 
-echo "${CHECKPOINT_PATH}"
-echo "${EXPORT_PATH}"
+echo "Checkpoint: ${CHECKPOINT_PATH}"
+echo "Export: ${EXPORT_PATH}"
 
 python research/deeplab/export_model.py \
   --logtostderr \
   --vis_split="val" \
-  --checkpoint_path=CHECKPOINT_PATH  \
-  --export_path=EXPORT_PATH \
+  --checkpoint_path="${CHECKPOINT_PATH}"  \
+  --export_path="${EXPORT_PATH}" \
   --dataset="imat_fashion" \
   --model_variant="xception_65" \
   --atrous_rates=6 \
