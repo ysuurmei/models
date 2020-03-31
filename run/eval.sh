@@ -5,6 +5,7 @@ cd ..
 CURRENT_DIR=$(pwd)
 
 # Set up folder structure
+MODEL_VERSION="v1"
 WORK_DIR="${CURRENT_DIR}/research/deeplab"
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
 PQR_FOLDER="PQR"
