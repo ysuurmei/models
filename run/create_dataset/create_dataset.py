@@ -6,7 +6,7 @@ import numpy as np
 import shutil
 import progressbar
 
-def create_deeplab_dataset(model_version, root_folder, label_file, image_folder=None, subset = None,
+def create_deeplab_dataset(model_version, root_folder, label_file, image_folder=None, subset=None,
                            train_val_split=(0.9, 0.1),input_size=512, version_info=None):
     # initialize the training and validation subsets
     train_set, val_set = [], []
