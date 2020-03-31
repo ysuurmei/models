@@ -3,6 +3,7 @@ export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 cd ..
 
 # Set up folder structure
+MODEL_VERSION="v1"
 WORK_DIR="${CURRENT_DIR}/research/deeplab"
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
 PQR_FOLDER="PQR"
@@ -10,7 +11,7 @@ INIT_FOLDER="${WORK_DIR}/pretrained"
 TRAIN_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/train"
 
 #Configure export params
-CHECKPOINT=4343
+CHECKPOINT=50000
 CHECKPOINT_PATH="${TRAIN_LOGDIR}/model.ckpt-${CHECKPOINT}"
 EXPORT_PATH="${TRAIN_LOGDIR}/frozen_inference_graph_${CHECKPOINT}.pb"
 
