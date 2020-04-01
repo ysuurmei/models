@@ -33,6 +33,7 @@ label_weights_array=(3.0 1.2 12.6 16.9 2.4 25.9 1.5 6.8 3.7 0 1.0 0 0 0 0 0 0 0 
 # Run the python training script
 python research/deeplab/train.py \
   --logtostderr \
+  --dataset="imat_fashion" \
   --train_split="train" \
   --model_variant="xception_65" \
   --atrous_rates=6 \
@@ -50,11 +51,18 @@ python research/deeplab/train.py \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}" \
   --initialize_last_layer=false \
-  --label_weights=1 \
-  --label_weights=2 \
-  --label_weights=3 \
-  --label_weights=4 \
-  --label_weights=5 \
+  --label_weights=3.0 \
+  --label_weights=1.2 \
+  --label_weights=12.6 \
+  --label_weights=16.9 \
+  --label_weights=2.4 \
+  --label_weights=26.0 \
+  --label_weights=1.5 \
+  --label_weights=6.8 \
+  --label_weights=3.7 \
+  --label_weights=1.0 \
+  --label_weights=1.0 \
+
 
 
 
