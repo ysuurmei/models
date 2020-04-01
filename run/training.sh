@@ -50,7 +50,7 @@ python research/deeplab/train.py \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}" \
   --initialize_last_layer=false \
-  --custom_label_weights= "${label_weights_array[@]}"
+  --custom_label_weights="${label_weights_array[@]}"
 
 
 
