@@ -57,7 +57,7 @@ def create_deeplab_dataset(model_version, root_folder, label_file, image_folder=
             annotation = [int(x) for x in row['EncodedPixels'].split(' ')]
 
             for i, start_pixel in enumerate(annotation[::2]):
-                mask[start_pixel: start_pixel + annotation[2 * i + 1]] = row['ClassId'].split('_')[0]
+                mask[start_pixel: start_pixel + annotation[2 * i + 1]] = int(row['ClassId'].split('_')[0])+1 # use ClassId + 1 because background = 0
 
         #Create mask image
         mask = mask.reshape((height, width), order='F')
@@ -103,7 +103,8 @@ if __name__ == '__main__':
 
     # Set the model version and data folder as environmental variables, so that we can pass them to the .sh script
     os.environ['DATA_FOLDER'] = '/home/ubuntu/data_imat'
-    os.environ['MODEL_VERSION'] = 'deeplab/v1'
+    os.environ['MODEL_VERSION'] = 'deeplab/v2'
+
     if not os.path.exists(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION'])):
         os.makedirs(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION']))
 
@@ -112,7 +113,8 @@ if __name__ == '__main__':
     IMAGE_FOLDER = os.path.join(os.environ['DATA_FOLDER'], 'train')
 
     # Set the parameters for the new dataset
-    SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts", "skirt", "dress"]
+    SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
+              "skirt", "coat", "dress", "jumpsuit", "cape"]
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 
     # Load the label descripions file and subset the dataset based on the label description indices
