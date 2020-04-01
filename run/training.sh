@@ -28,7 +28,7 @@ mkdir -p "${TRAIN_LOGDIR}"
 cp run/training.sh "${DATASET_DIR}/training_settings.txt"
 
 # Set the label weights array
-label_weights_array=(3.0 1.2 12.6 16.9 2.4 25.9 1.5 6.8 3.7 0 1.0 0 0 0 0 0 0 0 0 0 0)
+label_weights_array=[3.0 1.2 12.6 16.9 2.4 25.9 1.5 6.8 3.7 0 1.0 0 0 0 0 0 0 0 0 0 0]
 
 # Run the python training script
 python research/deeplab/train.py \
