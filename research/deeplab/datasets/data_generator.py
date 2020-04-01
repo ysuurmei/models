@@ -101,11 +101,11 @@ _ADE20K_INFORMATION = DatasetDescriptor(
 
 _IMAT_FASHION_INFORMATION = DatasetDescriptor(
     splits_to_sizes={
-        'train': 39433,  # num of samples in images/training ubuntu vim command: ':echo line('$')'
-        'val': 4463,  # num of samples in images/validation
-        'trainval': 43896
+        'train': 40584,  # num of samples in images/training ubuntu vim command: ':echo line('$')'
+        'val': 4573,  # num of samples in images/validation
+        'trainval': 45175
     },
-    num_classes=11, #num_classes = num of fore-ground object class count + 1 for background
+    num_classes=14, #num_classes = num of fore-ground object class count + 1 for background
     #DO NOT SET ignore_label to 0!!!!
     ignore_label=255, #marks the region that does not influence the calculation of loss and gradients. (thus, pay attention not to mark your object as 255)
 )
