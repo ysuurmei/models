@@ -46,7 +46,8 @@ python research/deeplab/train.py \
   --tf_initial_checkpoint="${INIT_FOLDER}/deeplabv3_pascal_train_aug/model.ckpt" \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}" \
-  --initialize_last_layer=false
+  --initialize_last_layer=false \
+  --label_weights=[3.0, 1.2, 12.6, 16.9, 2.4, 25.9, 1.5, 6.8, 3.7, 0, 1.0]
 
 
 
