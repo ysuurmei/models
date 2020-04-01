@@ -30,7 +30,7 @@ cp run/training.sh "${DATASET_DIR}/training_settings.txt"
 # Run the python training script
 python research/deeplab/train.py \
   --logtostderr \
-  --num_clones=4 \
+  --num_clones=1 \
   --dataset="imat_fashion" \
   --train_split="train" \
   --model_variant="xception_65" \
