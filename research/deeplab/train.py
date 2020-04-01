@@ -247,7 +247,7 @@ def _build_deeplab(iterator, outputs_to_num_classes, ignore_label):
       crop_size=[int(sz) for sz in FLAGS.train_crop_size],
       atrous_rates=FLAGS.atrous_rates,
       output_stride=FLAGS.output_stride,
-      label_weights=FLAGS.custom_label_weights
+      # label_weights=FLAGS.custom_label_weights
   )
 
   outputs_to_scales_to_logits = model.multi_scale_logits(
