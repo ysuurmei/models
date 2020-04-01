@@ -158,6 +158,7 @@ def main(unused_argv):
     # Define the evaluation metric.
     metric_map = {}
     num_classes = dataset.num_of_classes
+    print('Number of classes: ', num_classes)
     metric_map['eval/%s_overall' % predictions_tag] = tf.metrics.mean_iou(
         labels=labels, predictions=predictions, num_classes=num_classes,
         weights=weights)
