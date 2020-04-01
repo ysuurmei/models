@@ -40,7 +40,7 @@ python research/deeplab/train.py \
   --output_stride=16 \
   --decoder_output_stride=4 \
   --train_crop_size=513,513 \
-  --train_batch_size=4 \
+  --train_batch_size=2 \
   --base_learning_rate=0.0001 \
   --end_learning_rate=0.000001 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
