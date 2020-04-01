@@ -217,6 +217,14 @@ flags.DEFINE_string('train_split', 'train',
 
 flags.DEFINE_string('dataset_dir', None, 'Where the dataset reside.')
 
+# Settings for unbalanced classes
+flags.DEFINE_multi_float(
+    'label_weights', None,
+    'A list of label weights, each element represents the weight for the label '
+    'of its index, for example, label_weights = [0.1, 0.5] means the weight '
+    'for label 0 is 0.1 and the weight for label 1 is 0.5. If set as None, all '
+    'the labels have the same weight 1.0.')
+
 
 def _build_deeplab(iterator, outputs_to_num_classes, ignore_label):
   """Builds a clone of DeepLab.
@@ -238,7 +246,9 @@ def _build_deeplab(iterator, outputs_to_num_classes, ignore_label):
       outputs_to_num_classes=outputs_to_num_classes,
       crop_size=[int(sz) for sz in FLAGS.train_crop_size],
       atrous_rates=FLAGS.atrous_rates,
-      output_stride=FLAGS.output_stride)
+      output_stride=FLAGS.output_stride,
+      label_weigths=FLAGS.label_weights
+  )
 
   outputs_to_scales_to_logits = model.multi_scale_logits(
       samples[common.IMAGE],

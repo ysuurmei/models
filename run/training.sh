@@ -38,12 +38,15 @@ python research/deeplab/train.py \
   --output_stride=16 \
   --decoder_output_stride=4 \
   --train_crop_size=513,513 \
-  --train_batch_size=1 \
+  --train_batch_size=4 \
+  --base_learning_rate=0.0001 \
+  --end_learning_rate=0.000001 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
   --fine_tune_batch_norm=False \
   --tf_initial_checkpoint="${INIT_FOLDER}/deeplabv3_pascal_train_aug/model.ckpt" \
   --train_logdir="${TRAIN_LOGDIR}" \
-  --dataset_dir="${DATASET}"
+  --dataset_dir="${DATASET}" \
+  --initialize_last_layer=false
 
 
 
