@@ -52,17 +52,17 @@ python research/deeplab/train.py \
   --label_weights=1.0 \
   --label_weights=3.0 \
   --label_weights=1.0 \
-  --label_weights=12.5 \
-  --label_weights=17.0 \
   --label_weights=2.5 \
-  --label_weights=26.0 \
+  --label_weights=3.0 \
+  --label_weights=2.0 \
+  --label_weights=3.0 \
   --label_weights=1.5 \
-  --label_weights=7.0 \
-  --label_weights=4.0 \
-  --label_weights=6.0 \
+  --label_weights=2.0 \
+  --label_weights=2.0 \
+  --label_weights=2.0 \
   --label_weights=1.0 \
-  --label_weights=20.5 \
-  --label_weights=100.0 \
+  --label_weights=2.0 \
+  --label_weights=10.0 \
 
 
 

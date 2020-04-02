@@ -3,19 +3,16 @@ export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 cd ..
 
 # Set up folder structure
-MODEL_VERSION="v1"
+MODEL_VERSION="v2"
+CHECKPOINT="49630"
 WORK_DIR="/home/ubuntu/data_imat/deeplab"
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
 PQR_FOLDER="PQR"
 TRAIN_LOGDIR="${DATASET_DIR}/${PQR_FOLDER}/train"
 
 #Configure export params
-CHECKPOINT="100000"
 CHECKPOINT_PATH="${TRAIN_LOGDIR}/model.ckpt-${CHECKPOINT}"
 EXPORT_PATH="${TRAIN_LOGDIR}/frozen_inference_graph_${CHECKPOINT}.pb"
-
-echo "Checkpoint: ${CHECKPOINT_PATH}"
-echo "Export: ${EXPORT_PATH}"
 
 python research/deeplab/export_model.py \
   --logtostderr \
