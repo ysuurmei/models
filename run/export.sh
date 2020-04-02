@@ -4,7 +4,7 @@ cd ..
 
 # Set up folder structure
 MODEL_VERSION="v2"
-CHECKPOINT="49630"
+CHECKPOINT="14065"
 WORK_DIR="/home/ubuntu/data_imat/deeplab"
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
 PQR_FOLDER="PQR"
