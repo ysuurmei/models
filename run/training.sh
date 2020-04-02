@@ -11,7 +11,7 @@ cd ..
 # Set working directory and version and iteration configs
 WORK_DIR='/home/ubuntu/data_imat/deeplab'
 MODEL_VERSION='v2'
-NUM_ITERATIONS=100000
+NUM_ITERATIONS=30000
 
 # Set up folder structure
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
@@ -41,7 +41,7 @@ python research/deeplab/train.py \
   --decoder_output_stride=4 \
   --train_crop_size=513,513 \
   --train_batch_size=2 \
-  --base_learning_rate=0.0001 \
+  --base_learning_rate=0.00005 \
   --end_learning_rate=0.000001 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
   --fine_tune_batch_norm=False \
