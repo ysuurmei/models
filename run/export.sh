@@ -28,6 +28,7 @@ python research/deeplab/export_model.py \
   --vis_crop_size=512 \
   --decoder_output_stride=4 \
   --output_stride=16
+  --initialize_last_layer=false \
 
 tar -czvf "${TRAIN_LOGDIR}/model_${MODEL_VERSION}_${CHECKPOINT}.tar.gz" "${CHECKPOINT_PATH}.data-00000-of-00001" \
 "${CHECKPOINT_PATH}.meta" "${CHECKPOINT_PATH}.index" "${EXPORT_PATH}"
