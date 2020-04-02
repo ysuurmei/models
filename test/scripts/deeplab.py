@@ -36,6 +36,16 @@ class DeepLabModel(object):
 
     self.sess = tf.Session(graph=self.graph)
 
+    self.dgenerator = tf.keras.preprocessing.image.ImageDataGenerator(
+      rescale=1. / 255,
+      featurewise_center=False,
+      samplewise_center=True,
+      featurewise_std_normalization=False,
+      samplewise_std_normalization=True
+    )
+
+
+
   def run(self, image):
     """Runs inference on a single image.
 
@@ -50,9 +60,12 @@ class DeepLabModel(object):
     resize_ratio = 1.0 * self.INPUT_SIZE / max(width, height)
     target_size = (int(resize_ratio * width), int(resize_ratio * height))
     resized_image = image.convert('RGB').resize(target_size, Image.ANTIALIAS)
+    resized_image = np.expand_dims(resized_image, 0)
+
+    self.dgenerator.fit(resized_image)
     batch_seg_map = self.sess.run(
         self.OUTPUT_TENSOR_NAME,
-        feed_dict={self.INPUT_TENSOR_NAME: [np.asarray(resized_image)]})
+        feed_dict={self.INPUT_TENSOR_NAME: [self.dgenerator.flow(resized_image, shuffle=False)]})
     seg_map = batch_seg_map[0]
     return resized_image, seg_map, batch_seg_map
 

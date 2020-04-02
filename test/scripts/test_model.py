@@ -15,8 +15,8 @@ if __name__ == '__main__':
     import numpy as np
     from progressbar import progressbar
 
-    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v1_100000.tar.gz'
-    PATH_IMAGES = r'C:\Users\YoupSuurmeijer\Documents\models\test\test_images'
+    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v2_49630.tar.gz'
+    PATH_IMAGES = r'C:\Users\YoupSuurmeijer\Documents\models\test\test_images\new_set'
     PATH_OUTPUT = os.path.join(r'C:\Users\YoupSuurmeijer\Documents\models\test\test_output',
                   os.path.basename(PATH_MODEL).split('.')[0])
 
