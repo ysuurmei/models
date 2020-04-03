@@ -167,7 +167,7 @@ if __name__ == '__main__':
     start = datetime.now()
     # Create the dataset in deeplab format
     create_deeplab_dataset_mp(model_version=os.environ['MODEL_VERSION'], root_folder=os.environ['DATA_FOLDER'],
-                           label_file=DATA_FILE, image_folder=IMAGE_FOLDER,
+                           label_file=DATA_FILE, image_folder=IMAGE_FOLDER, input_size=256,
                            subset=subset_indices, version_info=version_info, n_workers=12)
 
     print(datetime.now()-start)
