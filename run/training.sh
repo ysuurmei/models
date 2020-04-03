@@ -33,7 +33,7 @@ python research/deeplab/train.py \
   --num_clones=1 \
   --dataset="imat_fashion" \
   --train_split="train" \
-  --model_variant="xception_65" \
+  --model_variant="mobilenet_v2" \
   --atrous_rates=6 \
   --atrous_rates=12 \
   --atrous_rates=18 \
@@ -62,7 +62,7 @@ python research/deeplab/train.py \
   --label_weights=2.0 \
   --label_weights=1.0 \
   --label_weights=2.0 \
-  --label_weights=10.0 \
+  --label_weights=2.0 \
 
 
 
