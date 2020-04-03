@@ -37,7 +37,7 @@ if __name__ == '__main__':
         element = Patch(color=col, label=el)
         legend_elements.append(element)
 
-    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v2_49630.tar.gz'
+    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v2_14065.tar.gz'
     PATH_IMAGES = r'C:\Users\YoupSuurmeijer\Documents\models\test\test_images\old_set'
     PATH_OUTPUT = os.path.join(r'C:\Users\YoupSuurmeijer\Documents\models\test\test_output',
                   os.path.basename(PATH_MODEL).split('.')[0])
