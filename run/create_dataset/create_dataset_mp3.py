@@ -13,10 +13,8 @@ class internWorker():
         self.dirs = dirs
         self.input_size = input_size
         self.train_val_split = train_val_split
-        print('Process ', self._id, 'is created')
 
     def run(self, split):
-        print('Thread ', self._id, 'started')
         train_set, val_set = [], []
 
         for image in progressbar.progressbar(split['ImageId'].unique()):
