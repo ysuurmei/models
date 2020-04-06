@@ -47,12 +47,12 @@ class internWorker(threading.Thread):
             # Resize mask + actual image
             resize_ratio = 1.0 * self.input_size / max(width, height)
             target_size = (int(resize_ratio * width), int(resize_ratio * height))
-            # rgb_image_resized = rgb_image.convert('RGB').resize(target_size, Image.ANTIALIAS)
+            rgb_image_resized = rgb_image.convert('RGB').resize(target_size, Image.ANTIALIAS)
             mask_image_resized = mask_image.resize(target_size, Image.ANTIALIAS)
 
             # Save mask + actual image
             mask_image_resized.save(os.path.join(self.dirs['subdir_class'], os.path.splitext(image)[0] + ".png"))
-            # rgb_image_resized.save(os.path.join(subdir_images, image))
+            rgb_image_resized.save(os.path.join(self.dirs['subdir_images'], image))
 
             # Randomly add them to train and validation sets
             draw = np.random.choice([0, 1], 1, p=self.train_val_split)[0]
@@ -146,9 +146,9 @@ if __name__ == '__main__':
     IMAGE_FOLDER = os.path.join(os.environ['DATA_FOLDER'], 'train')
 
     # Set the parameters for the new dataset
-    # SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
-    #          "skirt", "coat", "dress", "jumpsuit", "cape", "glasses", "hat", "watch", "shoe", "bag, wallet"]
-    SUBSET = ["jumpsuit"]
+    SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
+             "skirt", "coat", "dress", "jumpsuit", "cape", "glasses", "hat", "watch", "shoe", "bag, wallet"]
+    # SUBSET = ["jumpsuit"]
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 
     # Load the label descripions file and subset the dataset based on the label description indices
