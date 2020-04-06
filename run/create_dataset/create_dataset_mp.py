@@ -5,9 +5,8 @@ import json
 import numpy as np
 import shutil
 import progressbar
-import multiprocessing
-from datetime import datetime
 import threading
+from itertools import chain
 
 class internWorker(threading.Thread):
     def __init__(self, _id, labels , dirs, input_size, train_val_split):
@@ -112,8 +111,8 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
     for t in threads:
         t.join()
 
-    train_set = [t.train_set for t in threads]
-    val_set = [t.val_set for t in threads]
+    train_set = list(chain.from_iterable([t.train_set for t in threads]))
+    val_set = list(chain.from_iterable([t.val_set for t in threads]))
 
     # Write train, val and trainval sets to .txt files
     with open(os.path.join(subdir_sets, 'train.txt'), 'w') as f:
@@ -147,8 +146,9 @@ if __name__ == '__main__':
     IMAGE_FOLDER = os.path.join(os.environ['DATA_FOLDER'], 'train')
 
     # Set the parameters for the new dataset
-    SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
-             "skirt", "coat", "dress", "jumpsuit", "cape", "glasses", "hat", "watch", "shoe", "bag, wallet"]
+    # SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
+    #          "skirt", "coat", "dress", "jumpsuit", "cape", "glasses", "hat", "watch", "shoe", "bag, wallet"]
+    SUBSET = ["jumpsuit"]
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 
     # Load the label descripions file and subset the dataset based on the label description indices
