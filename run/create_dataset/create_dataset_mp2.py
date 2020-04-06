@@ -64,6 +64,8 @@ class internWorker():
         if not q_train_set.full() or not q_val_set.full():
             q_train_set.put(self.train_set)
             q_val_set.put(self.val_set)
+            q_train_set.close()
+            q_val_set.close()
         return
 
 def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=8, image_folder=None, subset=None,
