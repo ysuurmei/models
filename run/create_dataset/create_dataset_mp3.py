@@ -9,26 +9,24 @@ from itertools import chain
 import multiprocessing
 
 class internWorker():
-    def __init__(self, _id, labels , dirs, input_size, train_val_split):
-        self._id = _id
-        self.labels = labels
+    def __init__(self, dirs, input_size, train_val_split):
         self.dirs = dirs
         self.input_size = input_size
         self.train_val_split = train_val_split
-        self.train_set, self.val_set = [], []
         print('Process ', self._id, 'is created')
 
-    def run(self, q_train_set, q_val_set):
+    def run(self, split):
         print('Thread ', self._id, 'started')
+        train_set, val_set = [], []
 
-        for image in progressbar.progressbar(self.labels['ImageId'].unique()):
+        for image in progressbar.progressbar(split['ImageId'].unique()):
 
             # Load actual image
             rgb_image = Image.open(os.path.join(self.dirs['image_folder'], image))
             width, height = rgb_image.size
 
             # Subset all image labels and initialize mask
-            image_labels = self.labels[self.labels['ImageId'] == image]
+            image_labels = split[split['ImageId'] == image]
             mask = np.full(height * width, 0, dtype=np.uint8)
 
             # Combine all image masks into a single segmmap
@@ -57,16 +55,11 @@ class internWorker():
             draw = np.random.choice([0, 1], 1, p=self.train_val_split)[0]
 
             if draw:
-                self.val_set.append(os.path.splitext(image)[0])
+                val_set.append(os.path.splitext(image)[0])
             else:
-                self.train_set.append(os.path.splitext(image)[0])
-        print('Thread ', self._id, 'completed')
-        if not q_train_set.full() or not q_val_set.full():
-            q_train_set.put(self.train_set)
-            q_val_set.put(self.val_set)
-            q_train_set.close()
-            q_val_set.close()
-        return
+                train_set.append(os.path.splitext(image)[0])
+
+        return train_set, val_set
 
 def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=8, image_folder=None, subset=None,
                            train_val_split=(0.9, 0.1),input_size=512, version_info=None):
@@ -106,30 +99,15 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
             'subdir_images': subdir_images}
 
     splits = np.array_split(labels, n_workers)
-    q_train_set = multiprocessing.Queue()
-    q_val_set = multiprocessing.Queue()
-    procs = []
 
-    for idx, split in enumerate(splits):
-        worker = internWorker(idx, split, dirs, input_size, train_val_split) #(self, id, labels , dirs, input_size, train_val_split)
-        proc = multiprocessing.Process(target=worker.run, args=(q_train_set, q_val_set,))
-        procs.append(proc)
-        proc.start()
+    worker = internWorker(dirs, input_size, train_val_split)  # (self, id, labels , dirs, input_size, train_val_split)
 
-    print('processing completed')
+    with multiprocessing.Pool(n_workers) as p:
+        results = p.map(worker.run, splits)
+        p.close()
+        p.join()
 
-    # complete the processes
-    for proc in procs:
-        proc.join()
-
-    print('\npopping items from queue:')
-    train_set, val_set = [], []
-
-    while not q_train_set.empty():
-        train_set.append(q_train_set.get())
-
-    while not q_val_set.empty():
-        val_set.append(q_val_set.get())
+    train_set, val_set = [i[0] for i in results], [i[1] for i in results]
 
     train_set = list(chain.from_iterable(train_set))
     val_set = list(chain.from_iterable(val_set))
