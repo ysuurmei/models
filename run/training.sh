@@ -63,14 +63,7 @@ python research/deeplab/train.py \
   --label_weights=1.0 \
   --label_weights=2.0 \
   --label_weights=2.0 \
-  --label_weights=1.0 \
-  --label_weights=1.0 \
-  --label_weights=1.0 \
   --label_weights=2.0 \
-  --label_weights=1.0 \
-  --label_weights=1.0 \
-  --label_weights=1.0 \
-  --label_weights=1.0 \
   --label_weights=1.0 \
   --label_weights=1.5 \
 
