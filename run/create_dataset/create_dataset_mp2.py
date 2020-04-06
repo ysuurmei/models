@@ -57,9 +57,9 @@ class internWorker():
             draw = np.random.choice([0, 1], 1, p=self.train_val_split)[0]
 
             if draw:
-                self.val_set.put(os.path.splitext(image)[0])
+                self.val_set.append(os.path.splitext(image)[0])
             else:
-                self.train_set.put(os.path.splitext(image)[0])
+                self.train_set.append(os.path.splitext(image)[0])
         print('Thread ', self._id, 'completed')
         if not q_train_set.full() or not q_val_set.full():
             q_train_set.put(self.train_set)
