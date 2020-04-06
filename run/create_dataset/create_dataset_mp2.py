@@ -15,7 +15,7 @@ class internWorker():
         self.dirs = dirs
         self.input_size = input_size
         self.train_val_split = train_val_split
-        print('Thread ', self._id, 'is created')
+        print('Process ', self._id, 'is created')
 
     def run(self, q_train_set, q_val_set):
         print('Thread ', self._id, 'started')
@@ -108,7 +108,7 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
         proc = multiprocessing.Process(target=worker.run, args=(q_train_set, q_val_set,))
         procs.append(proc)
         proc.start()
-
+    print('processing completed')
     # complete the processes
     for proc in procs:
         proc.join()
@@ -154,9 +154,9 @@ if __name__ == '__main__':
     IMAGE_FOLDER = os.path.join(os.environ['DATA_FOLDER'], 'train')
 
     # Set the parameters for the new dataset
-    SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
-             "skirt", "coat", "dress", "jumpsuit", "cape", "glasses", "hat", "watch", "shoe", "bag, wallet"]
-    # SUBSET = ["jumpsuit"]
+    # SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
+    #          "skirt", "coat", "dress", "jumpsuit", "cape", "glasses", "hat", "watch", "shoe", "bag, wallet"]
+    SUBSET = ["jumpsuit"]
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 
     # Load the label descripions file and subset the dataset based on the label description indices
