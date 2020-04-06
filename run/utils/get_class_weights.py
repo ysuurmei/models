@@ -12,7 +12,7 @@ DATA_FILE = 'train.csv'
 
 # Set the parameters for the new dataset
 SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
-          "skirt", "coat", "dress", "jumpsuit", "cape"]
+          "skirt", "coat", "dress", "jumpsuit", "cape", "glasses", "hat", "watch", "shoe", "bag, wallet"]
 
 # Load the label descripions file and subset the dataset based on the label description indices
 with open(os.path.join(DATA_FOLDER, 'label_descriptions.json')) as json_data:

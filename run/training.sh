@@ -10,7 +10,7 @@ cd ..
 
 # Set working directory and version and iteration configs
 WORK_DIR='/home/ubuntu/data_imat/deeplab'
-MODEL_VERSION='v3'
+MODEL_VERSION='v4'
 NUM_ITERATIONS=30000
 
 # Set up folder structure
@@ -39,13 +39,13 @@ python research/deeplab/train.py \
   --atrous_rates=18 \
   --output_stride=16 \
   --decoder_output_stride=4 \
-  --train_crop_size=513,513 \
-  --train_batch_size=2 \
+  --train_crop_size=257,257 \
+  --train_batch_size=4 \
   --base_learning_rate=0.00001 \
   --end_learning_rate=0.000001 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
   --fine_tune_batch_norm=False \
-  --tf_initial_checkpoint="${INIT_FOLDER}/deeplabv3_pascal_train_aug/model.ckpt" \
+  --tf_initial_checkpoint="${INIT_FOLDER}/deeplabv3_mnv2_pascal_trainval/model.ckpt" \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}" \
   --initialize_last_layer=false \
@@ -63,7 +63,16 @@ python research/deeplab/train.py \
   --label_weights=1.0 \
   --label_weights=2.0 \
   --label_weights=2.0 \
-
+  --label_weights=1.0 \
+  --label_weights=1.0 \
+  --label_weights=1.0 \
+  --label_weights=2.0 \
+  --label_weights=1.0 \
+  --label_weights=1.0 \
+  --label_weights=1.0 \
+  --label_weights=1.0 \
+  --label_weights=1.0 \
+  --label_weights=1.5 \
 
 
 
