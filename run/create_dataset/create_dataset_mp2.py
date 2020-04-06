@@ -15,6 +15,7 @@ class internWorker():
         self.dirs = dirs
         self.input_size = input_size
         self.train_val_split = train_val_split
+        self.train_set, self.val_set = [], []
         print('Process ', self._id, 'is created')
 
     def run(self, q_train_set, q_val_set):
@@ -56,10 +57,14 @@ class internWorker():
             draw = np.random.choice([0, 1], 1, p=self.train_val_split)[0]
 
             if draw:
-                q_val_set.put(os.path.splitext(image)[0])
+                self.val_set.put(os.path.splitext(image)[0])
             else:
-                q_train_set.put(os.path.splitext(image)[0])
+                self.train_set.put(os.path.splitext(image)[0])
         print('Thread ', self._id, 'completed')
+        if not q_train_set.full() or not q_val_set.full():
+            q_train_set.put(self.train_set)
+            q_val_set.put(self.val_set)
+        return
 
 def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=8, image_folder=None, subset=None,
                            train_val_split=(0.9, 0.1),input_size=512, version_info=None):
@@ -121,6 +126,9 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
 
     while not q_val_set.empty():
         val_set.append(q_val_set.get())
+
+    train_set = list(chain.from_iterable(train_set))
+    val_set = list(chain.from_iterable(val_set))
 
     # Write train, val and trainval sets to .txt files
     with open(os.path.join(subdir_sets, 'train.txt'), 'w') as f:
