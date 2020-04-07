@@ -3,8 +3,8 @@ export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 cd ..
 
 # Set up folder structure
-MODEL_VERSION="v2"
-CHECKPOINT="14065"
+MODEL_VERSION="v4"
+CHECKPOINT="55610"
 WORK_DIR="/home/ubuntu/data_imat/deeplab"
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
 PQR_FOLDER="PQR"
@@ -20,15 +20,15 @@ python research/deeplab/export_model.py \
   --checkpoint_path="${CHECKPOINT_PATH}"  \
   --export_path="${EXPORT_PATH}" \
   --dataset="imat_fashion" \
-  --model_variant="xception_65" \
+  --model_variant="mobilenet_v2" \
   --atrous_rates=6 \
   --atrous_rates=12 \
   --atrous_rates=18 \
-  --vis_crop_size=512 \
-  --vis_crop_size=512 \
+  --vis_crop_size=256 \
+  --vis_crop_size=256 \
   --decoder_output_stride=4 \
   --output_stride=16 \
-  --num_classes=14
+  --num_classes=18
 
 tar -czvf "${TRAIN_LOGDIR}/model_${MODEL_VERSION}_${CHECKPOINT}.tar.gz" "${CHECKPOINT_PATH}.data-00000-of-00001" \
 "${CHECKPOINT_PATH}.meta" "${CHECKPOINT_PATH}.index" "${EXPORT_PATH}"
