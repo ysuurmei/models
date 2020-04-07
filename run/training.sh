@@ -45,28 +45,9 @@ python research/deeplab/train.py \
   --end_learning_rate=0.000001 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
   --fine_tune_batch_norm=False \
-  #--tf_initial_checkpoint="${INIT_FOLDER}/deeplabv3_mnv2_pascal_trainval/model.ckpt-30000" \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}" \
   --initialize_last_layer=false \
-  #--label_weights=1.0 \
-  #--label_weights=3.0 \
-  #--label_weights=1.0 \
-  #--label_weights=2.5 \
-  #--label_weights=3.0 \
-  #--label_weights=2.0 \
-  #--label_weights=3.0 \
-  #--label_weights=1.5 \
-  #--label_weights=2.0 \
-  #--label_weights=2.0 \
-  #--label_weights=2.0 \
-  #--label_weights=1.0 \
-  #--label_weights=2.0 \
-  #--label_weights=2.0 \
-  #--label_weights=2.0 \
-  #--label_weights=2.0 \
-  #--label_weights=1.0 \
-  #--label_weights=1.5 \
 
 
 
