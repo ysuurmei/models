@@ -32,8 +32,7 @@ class internWorker():
                 annotation = [int(x) for x in row['EncodedPixels'].split(' ')]
 
                 for i, start_pixel in enumerate(annotation[::2]):
-                    mask[start_pixel: start_pixel + annotation[2 * i + 1]] = int(
-                        row['ClassId'].split('_')[0]) + 1  # use ClassId + 1 because background = 0
+                    mask[start_pixel: start_pixel + annotation[2 * i + 1]] = int(row['NormClassId'])  # use ClassId + 1 because background = 0
 
             # Create mask image
             mask = mask.reshape((height, width), order='F')
@@ -44,6 +43,8 @@ class internWorker():
             target_size = (int(resize_ratio * width), int(resize_ratio * height))
             rgb_image_resized = rgb_image.convert('RGB').resize(target_size, Image.ANTIALIAS)
             mask_image_resized = mask_image.resize(target_size, Image.ANTIALIAS)
+
+            print('Min/Max', np.min(mask_image_resized), np.max(mask_image_resized))
 
             # Save mask + actual image
             mask_image_resized.save(os.path.join(self.dirs['subdir_class'], os.path.splitext(image)[0] + ".png"))
@@ -88,9 +89,18 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
 
     # If required subset the dataset
     if subset:
-        subset_rows = [int(i.split('_')[0]) in subset for i in labels['ClassId']]
+        item_categories = [int(i.split('_')[0]) for i in labels['ClassId']]
+        subset_rows = [i in subset for i in item_categories]
         labels = labels[subset_rows]
         print('Subsetting dataset, using {} images'.format(len(labels['ImageId'].unique())))
+
+        mapping, labels['NormClassId'] = np.unique(item_categories, return_inverse=True)
+        mapping += 1
+        labels += 1
+        print('Applying label mapping: ', mapping)
+
+        with open(os.path.join(root_folder, model_version, 'mapping.txt'), 'w') as f:
+                f.write(mapping)
 
     dirs = {'image_folder': os.path.join(root_folder, image_folder),
             'subdir_class': subdir_class,
