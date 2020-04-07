@@ -33,7 +33,7 @@ python research/deeplab/train.py \
   --num_clones=1 \
   --dataset="imat_fashion" \
   --train_split="train" \
-  --model_variant="resnet_v1" \
+  --model_variant="resnet_v1_50_beta" \
   --atrous_rates=6 \
   --atrous_rates=12 \
   --atrous_rates=18 \
