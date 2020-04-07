@@ -44,8 +44,6 @@ class internWorker():
             rgb_image_resized = rgb_image.convert('RGB').resize(target_size, Image.ANTIALIAS)
             mask_image_resized = mask_image.resize(target_size, Image.NEAREST)
 
-            print('Min/Max', np.min(mask_image_resized), np.max(mask_image_resized))
-
             # Save mask + actual image
             mask_image_resized.save(os.path.join(self.dirs['subdir_class'], os.path.splitext(image)[0] + ".png"))
             rgb_image_resized.save(os.path.join(self.dirs['subdir_images'], image))
