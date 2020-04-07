@@ -103,7 +103,7 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
         print('Applying label mapping: ', mapping)
 
         with open(os.path.join(root_folder, model_version, 'mapping.txt'), 'w') as f:
-                f.write(mapping)
+                f.write(str(mapping))
 
     dirs = {'image_folder': os.path.join(root_folder, image_folder),
             'subdir_class': subdir_class,
