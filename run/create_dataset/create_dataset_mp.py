@@ -42,7 +42,7 @@ class internWorker():
             resize_ratio = 1.0 * self.input_size / max(width, height)
             target_size = (int(resize_ratio * width), int(resize_ratio * height))
             rgb_image_resized = rgb_image.convert('RGB').resize(target_size, Image.ANTIALIAS)
-            mask_image_resized = mask_image.resize(target_size, Image.ANTIALIAS)
+            mask_image_resized = mask_image.resize(target_size, Image.NEAREST)
 
             print('Min/Max', np.min(mask_image_resized), np.max(mask_image_resized))
 
