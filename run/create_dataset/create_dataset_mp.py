@@ -92,6 +92,7 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
         item_categories = [int(i.split('_')[0]) for i in labels['ClassId']]
         subset_rows = [i in subset for i in item_categories]
         labels = labels[subset_rows]
+        print('Lenghts', len(item_categories), len(subset_rows), len(labels))
         print('Subsetting dataset, using {} images'.format(len(labels['ImageId'].unique())))
 
         mapping, labels['NormClassId'] = np.unique(item_categories, return_inverse=True)
