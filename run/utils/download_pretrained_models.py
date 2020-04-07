@@ -20,6 +20,8 @@ _MODEL_URLS = {
         'deeplabv3_pascal_train_aug_2018_01_04.tar.gz',
     'xception_coco_voctrainval':
         'deeplabv3_pascal_trainval_2018_01_04.tar.gz',
+    'resnet_v1_50_beta_imagenet':
+        'resnet_v1_50_2018_05_04.tar.gz'
 }
 _TARBALL_NAME = 'deeplab_model.tar.gz'
 _UNZIP_FOLDER = _MODEL_URLS[MODEL_NAME].split('_20')[0]

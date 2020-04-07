@@ -33,7 +33,7 @@ python research/deeplab/train.py \
   --num_clones=1 \
   --dataset="imat_fashion" \
   --train_split="train" \
-  --model_variant="mobilenet_v2" \
+  --model_variant="resnet_v1" \
   --atrous_rates=6 \
   --atrous_rates=12 \
   --atrous_rates=18 \
@@ -49,24 +49,24 @@ python research/deeplab/train.py \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}" \
   --initialize_last_layer=false \
-  --label_weights=1.0 \
-  --label_weights=3.0 \
-  --label_weights=1.0 \
-  --label_weights=2.5 \
-  --label_weights=3.0 \
-  --label_weights=2.0 \
-  --label_weights=3.0 \
-  --label_weights=1.5 \
-  --label_weights=2.0 \
-  --label_weights=2.0 \
-  --label_weights=2.0 \
-  --label_weights=1.0 \
-  --label_weights=2.0 \
-  --label_weights=2.0 \
-  --label_weights=2.0 \
-  --label_weights=2.0 \
-  --label_weights=1.0 \
-  --label_weights=1.5 \
+  #--label_weights=1.0 \
+  #--label_weights=3.0 \
+  #--label_weights=1.0 \
+  #--label_weights=2.5 \
+  #--label_weights=3.0 \
+  #--label_weights=2.0 \
+  #--label_weights=3.0 \
+  #--label_weights=1.5 \
+  #--label_weights=2.0 \
+  #--label_weights=2.0 \
+  #--label_weights=2.0 \
+  #--label_weights=1.0 \
+  #--label_weights=2.0 \
+  #--label_weights=2.0 \
+  #--label_weights=2.0 \
+  #--label_weights=2.0 \
+  #--label_weights=1.0 \
+  #--label_weights=1.5 \
 
 
 

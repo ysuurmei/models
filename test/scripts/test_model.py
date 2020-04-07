@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     DATA_FOLDER = r'C:\Users\YoupSuurmeijer\Downloads\train'
     SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
-              "skirt", "coat", "dress", "jumpsuit", "cape"]
+             "skirt", "coat", "dress", "jumpsuit", "cape", "glasses", "hat", "watch", "shoe", "bag, wallet"]
 
     # Load the label descripions file and subset the dataset based on the label description indices
     with open(os.path.join(DATA_FOLDER, 'label_descriptions.json')) as json_data:
@@ -37,7 +37,7 @@ if __name__ == '__main__':
         element = Patch(color=col, label=el)
         legend_elements.append(element)
 
-    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v2_14065.tar.gz'
+    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v4_55610.tar.gz'
     PATH_IMAGES = r'C:\Users\YoupSuurmeijer\Documents\models\test\test_images\old_set'
     PATH_OUTPUT = os.path.join(r'C:\Users\YoupSuurmeijer\Documents\models\test\test_output',
                   os.path.basename(PATH_MODEL).split('.')[0])
