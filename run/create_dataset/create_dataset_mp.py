@@ -32,7 +32,7 @@ class internWorker():
                 annotation = [int(x) for x in row['EncodedPixels'].split(' ')]
 
                 for i, start_pixel in enumerate(annotation[::2]):
-                    mask[start_pixel: start_pixel + annotation[2 * i + 1]] = int(row['NormClassId'])  # use ClassId + 1 because background = 0
+                    mask[start_pixel: start_pixel + annotation[2 * i + 1]] = row['NormClassId']  # use ClassId + 1 because background = 0
 
             # Create mask image
             mask = mask.reshape((height, width), order='F')
