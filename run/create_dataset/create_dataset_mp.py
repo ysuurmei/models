@@ -108,9 +108,6 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
             'subdir_images': subdir_images}
 
     splits = np.array_split(labels, n_workers)
-    for i in splits:
-        print('Unique labels: ', i['NormClassId'].unique())
-
     worker = internWorker(dirs, input_size, train_val_split)  # (self, id, labels , dirs, input_size, train_val_split)
 
     with multiprocessing.Pool(n_workers) as p:
