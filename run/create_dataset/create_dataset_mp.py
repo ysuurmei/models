@@ -94,7 +94,6 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
         labels = labels[subset_rows]
         item_categories = [int(i.split('_')[0]) for i in labels['ClassId']]
 
-        print('Lenghts', len(item_categories), len(subset_rows), len(labels))
         print('Subsetting dataset, using {} images'.format(len(labels['ImageId'].unique())))
 
         mapping, labels['NormClassId'] = np.unique(item_categories, return_inverse=True)
@@ -111,6 +110,8 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
             'subdir_images': subdir_images}
 
     splits = np.array_split(labels, n_workers)
+    for i in splits:
+        print('Unique labels: ', i['NormClassId'].unique())
 
     worker = internWorker(dirs, input_size, train_val_split)  # (self, id, labels , dirs, input_size, train_val_split)
 
