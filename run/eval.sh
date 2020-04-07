@@ -28,4 +28,5 @@ python research/deeplab/eval.py \
 --checkpoint_dir="${TRAIN_LOGDIR}" \
 --eval_logdir="${EVAL_LOGDIR}" \
 --dataset_dir="${DATASET}" \
---max_number_of_evaluations=1
+--max_number_of_evaluations=1 \
+  --initialize_last_layer=false \
