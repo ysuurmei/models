@@ -5,31 +5,26 @@ import json
 import numpy as np
 import shutil
 import progressbar
-import threading
 from itertools import chain
+import multiprocessing
 
-class internWorker(threading.Thread):
-    def __init__(self, _id, labels , dirs, input_size, train_val_split):
-        threading.Thread.__init__(self)
-        self._id = _id
-        self.train_set, self.val_set = [], []
-        self.labels = labels
+class internWorker():
+    def __init__(self, dirs, input_size, train_val_split):
         self.dirs = dirs
         self.input_size = input_size
         self.train_val_split = train_val_split
-        print('Thread ', self._id, 'is created')
 
-    def run(self):
-        print('Thread ', self._id, 'started')
+    def run(self, split):
+        train_set, val_set = [], []
 
-        for image in progressbar.progressbar(self.labels['ImageId'].unique()):
+        for image in progressbar.progressbar(split['ImageId'].unique()):
 
             # Load actual image
             rgb_image = Image.open(os.path.join(self.dirs['image_folder'], image))
             width, height = rgb_image.size
 
             # Subset all image labels and initialize mask
-            image_labels = self.labels[self.labels['ImageId'] == image]
+            image_labels = split[split['ImageId'] == image]
             mask = np.full(height * width, 0, dtype=np.uint8)
 
             # Combine all image masks into a single segmmap
@@ -58,10 +53,11 @@ class internWorker(threading.Thread):
             draw = np.random.choice([0, 1], 1, p=self.train_val_split)[0]
 
             if draw:
-                self.val_set.append(os.path.splitext(image)[0])
+                val_set.append(os.path.splitext(image)[0])
             else:
-                self.train_set.append(os.path.splitext(image)[0])
-        print('Thread ', self._id, 'completed')
+                train_set.append(os.path.splitext(image)[0])
+
+        return train_set, val_set
 
 def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=8, image_folder=None, subset=None,
                            train_val_split=(0.9, 0.1),input_size=512, version_info=None):
@@ -96,23 +92,23 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
         labels = labels[subset_rows]
         print('Subsetting dataset, using {} images'.format(len(labels['ImageId'].unique())))
 
-    splits = np.array_split(labels, n_workers)
-    threads = []
-
     dirs = {'image_folder': os.path.join(root_folder, image_folder),
             'subdir_class': subdir_class,
             'subdir_images': subdir_images}
 
-    for idx, split in enumerate(splits):
-        t = internWorker(idx, split, dirs, input_size, train_val_split) #(self, id, labels , dirs, input_size, train_val_split)
-        t.start()
-        threads.append(t)
+    splits = np.array_split(labels, n_workers)
 
-    for t in threads:
-        t.join()
+    worker = internWorker(dirs, input_size, train_val_split)  # (self, id, labels , dirs, input_size, train_val_split)
 
-    train_set = list(chain.from_iterable([t.train_set for t in threads]))
-    val_set = list(chain.from_iterable([t.val_set for t in threads]))
+    with multiprocessing.Pool(n_workers) as p:
+        results = p.map(worker.run, splits)
+        p.close()
+        p.join()
+
+    train_set, val_set = [i[0] for i in results], [i[1] for i in results]
+
+    train_set = list(chain.from_iterable(train_set))
+    val_set = list(chain.from_iterable(val_set))
 
     # Write train, val and trainval sets to .txt files
     with open(os.path.join(subdir_sets, 'train.txt'), 'w') as f:
@@ -146,9 +142,9 @@ if __name__ == '__main__':
     IMAGE_FOLDER = os.path.join(os.environ['DATA_FOLDER'], 'train')
 
     # Set the parameters for the new dataset
-    # SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
-    #          "skirt", "coat", "dress", "jumpsuit", "cape", "glasses", "hat", "watch", "shoe", "bag, wallet"]
-    SUBSET = ["jumpsuit"]
+    SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
+             "skirt", "coat", "dress", "jumpsuit", "cape", "glasses", "hat", "watch", "shoe", "bag, wallet"]
+
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 
     # Load the label descripions file and subset the dataset based on the label description indices
@@ -166,9 +162,11 @@ if __name__ == '__main__':
     )
     start = datetime.now()
     # Create the dataset in deeplab format
+    print("Number of cpu : ", multiprocessing.cpu_count())
     create_deeplab_dataset_mp(model_version=os.environ['MODEL_VERSION'], root_folder=os.environ['DATA_FOLDER'],
                            label_file=DATA_FILE, image_folder=IMAGE_FOLDER, input_size=256,
-                           subset=subset_indices, version_info=version_info, n_workers=12)
+                           subset=subset_indices, version_info=version_info, n_workers=multiprocessing.cpu_count())
+
 
     print(datetime.now()-start)
     # Run the shell script to convert the deeplab dataset to TFrecord format
