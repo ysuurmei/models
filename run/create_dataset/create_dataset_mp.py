@@ -101,6 +101,7 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
         mapping += 1
         labels['NormClassId'] += 1
         print('Applying label mapping: ', mapping)
+        print('Unique labels: ', labels['NormClassId'].unique())
 
         with open(os.path.join(root_folder, model_version, 'mapping.txt'), 'w') as f:
                 f.write(str(mapping))
