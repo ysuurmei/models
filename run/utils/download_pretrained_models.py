@@ -8,7 +8,7 @@ if not os.path.exists(DOWNLOAD_PATH):
     print('Directory', DOWNLOAD_PATH, 'not found, creating directory....')
     os.makedirs(DOWNLOAD_PATH)
 
-MODEL_NAME = 'resnet_v1_50_beta_imagenet'  # @param ['mobilenetv2_coco_voctrainaug', 'mobilenetv2_coco_voctrainval', 'xception_coco_voctrainaug', 'xception_coco_voctrainval']
+MODEL_NAME = 'mobilenetv2_coco_voctrainaug'  # @param ['resnet_v1_50_beta_imagenet', 'mobilenetv2_coco_voctrainaug', 'mobilenetv2_coco_voctrainval', 'xception_coco_voctrainaug', 'xception_coco_voctrainval']
 
 _DOWNLOAD_URL_PREFIX = 'http://download.tensorflow.org/models/'
 _MODEL_URLS = {
@@ -24,7 +24,7 @@ _MODEL_URLS = {
         'resnet_v1_50_2018_05_04.tar.gz'
 }
 _TARBALL_NAME = 'deeplab_model.tar.gz'
-_UNZIP_FOLDER = _MODEL_URLS[MODEL_NAME].split('_20')[0]
+_UNZIP_FOLDER = MODEL_NAME
 
 # Set download path here!
 file_path = os.path.join(DOWNLOAD_PATH, _TARBALL_NAME)
