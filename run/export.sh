@@ -16,19 +16,14 @@ EXPORT_PATH="${TRAIN_LOGDIR}/frozen_inference_graph_${CHECKPOINT}.pb"
 
 python research/deeplab/export_model.py \
   --logtostderr \
-  --vis_split="val" \
   --checkpoint_path="${CHECKPOINT_PATH}"  \
   --export_path="${EXPORT_PATH}" \
   --dataset="imat_fashion" \
   --model_variant="mobilenet_v2" \
-  --atrous_rates=6 \
-  --atrous_rates=12 \
-  --atrous_rates=18 \
-  --vis_crop_size=256 \
-  --vis_crop_size=256 \
-  --decoder_output_stride=4 \
-  --output_stride=16 \
-  --num_classes=18
+  --crop_size=256 \
+  --crop_size=256 \
+  --inference_scales=1.0 \
+  --num_classes=14
 
 tar -czvf "${TRAIN_LOGDIR}/model_${MODEL_VERSION}_${CHECKPOINT}.tar.gz" "${CHECKPOINT_PATH}.data-00000-of-00001" \
 "${CHECKPOINT_PATH}.meta" "${CHECKPOINT_PATH}.index" "${EXPORT_PATH}"
