@@ -41,8 +41,8 @@ python research/deeplab/train.py \
   --decoder_output_stride=4 \
   --train_crop_size=257,257 \
   --train_batch_size=4 \
-  --base_learning_rate=0.00001 \
-  --end_learning_rate=0.000001 \
+  --base_learning_rate=0.0001 \
+  --end_learning_rate=0.00001 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
   --fine_tune_batch_norm=False \
   --train_logdir="${TRAIN_LOGDIR}" \
