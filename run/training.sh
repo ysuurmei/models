@@ -11,7 +11,7 @@ cd ..
 # Set working directory and version and iteration configs
 WORK_DIR='/home/ubuntu/data_imat/deeplab'
 MODEL_VERSION='v5'
-NUM_ITERATIONS=5000
+NUM_ITERATIONS=1000
 
 # Set up folder structure
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
