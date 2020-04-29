@@ -20,7 +20,7 @@ python research/deeplab/eval.py \
 --model_variant="mobilenet_v2" \
 --output_stride=16 \
 --decoder_output_stride=4 \
---eval_crop_size=256,256 \
+--eval_crop_size=257,257 \
 --fine_tune_batch_norm=True \
 --checkpoint_dir="${TRAIN_LOGDIR}" \
 --eval_logdir="${EVAL_LOGDIR}" \
