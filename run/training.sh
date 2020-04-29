@@ -44,7 +44,8 @@ python research/deeplab/train.py \
   --tf_initial_checkpoint="${WORK_DIR}/pretrained/deeplabv3_mnv2_pascal_trainval/model.ckpt-30000" \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}" \
-
+  --initialize_last_layer=False \
+  --last_layers_contain_logits_only=False
 
 
 
