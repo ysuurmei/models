@@ -44,7 +44,7 @@ class internWorker():
             rgb_image_resized = rgb_image.convert('RGB').resize(target_size, Image.ANTIALIAS)
             mask_image_resized = mask_image.resize(target_size, Image.NEAREST)
             mask_image_resized = np.array(mask_image_resized).astype(np.uint8) # Ensure the labels are correct dtype
-            print(np.unique(mask_image_resized))
+            #print(np.unique(mask_image_resized))
             mask_image_resized = Image.fromarray(mask_image_resized)
 
 
