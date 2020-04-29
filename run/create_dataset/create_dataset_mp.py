@@ -157,7 +157,7 @@ if __name__ == '__main__':
 
     # Set the parameters for the new dataset
     SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
-             "skirt", "coat", "dress", "jumpsuit", "cape", "glasses", "hat", "watch", "shoe", "bag, wallet"]
+             "skirt", "coat", "dress", "jumpsuit", "cape"]
 
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 

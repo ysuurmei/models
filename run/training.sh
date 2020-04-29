@@ -49,22 +49,18 @@ python research/deeplab/train.py \
   --label_weights=1 \
   --label_weights=4 \
   --label_weights=4 \
+  --label_weights=8 \
+  --label_weights=8 \
+  --label_weights=4 \
+  --label_weights=8 \
+  --label_weights=4 \
+  --label_weights=8 \
   --label_weights=4 \
   --label_weights=4 \
   --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
+  --label_weights=8 \
+  --label_weights=8 \
+
 
 
 
