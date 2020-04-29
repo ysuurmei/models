@@ -24,3 +24,4 @@ python research/deeplab/eval.py \
 --eval_logdir="${EVAL_LOGDIR}" \
 --dataset_dir="${DATASET}" \
 --max_number_of_evaluations=1 \
+--dataset="imat_fashion" \
