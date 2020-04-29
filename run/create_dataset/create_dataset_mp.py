@@ -43,6 +43,10 @@ class internWorker():
             target_size = (int(resize_ratio * width), int(resize_ratio * height))
             rgb_image_resized = rgb_image.convert('RGB').resize(target_size, Image.ANTIALIAS)
             mask_image_resized = mask_image.resize(target_size, Image.NEAREST)
+            mask_image_resized = np.array(mask_image_resized).astype(np.uint8) # Ensure the labels are correct dtype
+            print(np.unique(mask_image_resized))
+            mask_image_resized = Image.fromarray(mask_image_resized)
+
 
             # Save mask + actual image
             mask_image_resized.save(os.path.join(self.dirs['subdir_class'], os.path.splitext(image)[0] + ".png"))
@@ -142,7 +146,7 @@ if __name__ == '__main__':
 
     # Set the model version and data folder as environmental variables, so that we can pass them to the .sh script
     os.environ['DATA_FOLDER'] = '/home/ubuntu/data_imat'
-    os.environ['MODEL_VERSION'] = 'deeplab/v4'
+    os.environ['MODEL_VERSION'] = 'deeplab/v5'
 
     if not os.path.exists(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION'])):
         os.makedirs(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION']))
