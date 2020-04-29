@@ -45,7 +45,7 @@ python research/deeplab/train.py \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}" \
   --initialize_last_layer=False \
-  --last_layers_contain_logits_only=False
+  --last_layers_contain_logits_only=False \
   --label_weights=1 \
   --label_weights=4 \
   --label_weights=4 \
