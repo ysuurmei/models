@@ -11,7 +11,7 @@ cd ..
 # Set working directory and version and iteration configs
 WORK_DIR='/home/ubuntu/data_imat/deeplab'
 MODEL_VERSION='v5'
-NUM_ITERATIONS=1000
+NUM_ITERATIONS=15000
 
 # Set up folder structure
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
@@ -31,6 +31,7 @@ cp run/training.sh "${DATASET_DIR}/training_settings.txt"
 python research/deeplab/train.py \
   --logtostderr \
   --num_clones=1 \
+  --save_summaries_secs=60\
   --dataset="imat_fashion" \
   --train_split="train" \
   --model_variant="mobilenet_v2" \
