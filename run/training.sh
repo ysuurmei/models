@@ -45,7 +45,7 @@ python research/deeplab/train.py \
   --end_learning_rate=0.00001 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
   --fine_tune_batch_norm=true \
-  --tf_initial_checkpoint="${WORK_DIR}/pretrained/model.ckpt-30000" \
+  --tf_initial_checkpoint="${WORK_DIR}/pretrained/deeplabv3_mnv2_pascal_trainval/model.ckpt-30000" \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}" \
   --initialize_last_layer=false \
