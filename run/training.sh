@@ -11,7 +11,7 @@ cd ..
 # Set working directory and version and iteration configs
 WORK_DIR='/home/ubuntu/data_imat/deeplab'
 MODEL_VERSION='v5'
-NUM_ITERATIONS=15000
+NUM_ITERATIONS=50000
 
 # Set up folder structure
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
@@ -47,20 +47,20 @@ python research/deeplab/train.py \
   --dataset_dir="${DATASET}" \
   --initialize_last_layer=False \
   --last_layers_contain_logits_only=False \
-  --label_weights=1 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=8 \
-  --label_weights=8 \
-  --label_weights=4 \
-  --label_weights=8 \
-  --label_weights=4 \
-  --label_weights=8 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=4 \
-  --label_weights=8 \
-  --label_weights=8 \
+  --label_weights=1 \ # background
+  --label_weights=5 \ # 0
+  --label_weights=4 \ # 1
+  --label_weights=8 \ # 2
+  --label_weights=8 \ # 3
+  --label_weights=4 \ # 4
+  --label_weights=8 \ # 5
+  --label_weights=4 \ # 6
+  --label_weights=6 \ # 7
+  --label_weights=4 \ # 8
+  --label_weights=6 \ # 9
+  --label_weights=4 \ # 10
+  --label_weights=8 \ # 11
+  --label_weights=16 \ # 12
 
 
 
