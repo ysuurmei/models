@@ -4,7 +4,7 @@ export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 cd ..
 
 # Set up folder structure
-MODEL_VERSION="v5"
+MODEL_VERSION="v6"
 WORK_DIR="/home/ubuntu/data_imat/deeplab"
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
 PQR_FOLDER="PQR"
@@ -19,7 +19,7 @@ python research/deeplab/eval.py \
 --eval_split="val" \
 --model_variant="mobilenet_v2" \
 --output_stride=16 \
---eval_crop_size=257,257 \
+--eval_crop_size=513,513 \
 --checkpoint_dir="${TRAIN_LOGDIR}" \
 --eval_logdir="${EVAL_LOGDIR}" \
 --dataset_dir="${DATASET}" \

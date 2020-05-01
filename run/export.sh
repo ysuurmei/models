@@ -3,8 +3,8 @@ export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 cd ..
 
 # Set up folder structure
-MODEL_VERSION="v5"
-CHECKPOINT="50000"
+MODEL_VERSION="v6"
+CHECKPOINT="100000"
 WORK_DIR="/home/ubuntu/data_imat/deeplab"
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
 PQR_FOLDER="PQR"
@@ -20,8 +20,8 @@ python research/deeplab/export_model.py \
   --export_path="${EXPORT_PATH}" \
   --dataset="imat_fashion" \
   --model_variant="mobilenet_v2" \
-  --crop_size=256 \
-  --crop_size=256 \
+  --crop_size=512 \
+  --crop_size=512 \
   --inference_scales=1.0 \
   --num_classes=14
 
