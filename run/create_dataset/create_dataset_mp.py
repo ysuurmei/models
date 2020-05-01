@@ -146,7 +146,7 @@ if __name__ == '__main__':
 
     # Set the model version and data folder as environmental variables, so that we can pass them to the .sh script
     os.environ['DATA_FOLDER'] = '/home/ubuntu/data_imat'
-    os.environ['MODEL_VERSION'] = 'deeplab/v5'
+    os.environ['MODEL_VERSION'] = 'deeplab/v6'
 
     if not os.path.exists(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION'])):
         os.makedirs(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION']))
@@ -178,7 +178,7 @@ if __name__ == '__main__':
     # Create the dataset in deeplab format
     print("Number of cpu : ", multiprocessing.cpu_count())
     create_deeplab_dataset_mp(model_version=os.environ['MODEL_VERSION'], root_folder=os.environ['DATA_FOLDER'],
-                           label_file=DATA_FILE, image_folder=IMAGE_FOLDER, input_size=256,
+                           label_file=DATA_FILE, image_folder=IMAGE_FOLDER, input_size=512,
                            subset=subset_indices, version_info=version_info, n_workers=multiprocessing.cpu_count())
 
 

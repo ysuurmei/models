@@ -37,7 +37,7 @@ if __name__ == '__main__':
         element = Patch(color=col, label=el)
         legend_elements.append(element)
 
-    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v5_15000.tar.gz'
+    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v5_50000.tar.gz'
     PATH_IMAGES = r'C:\Users\YoupSuurmeijer\Documents\models\test\test_images\old_set'
     PATH_OUTPUT = os.path.join(r'C:\Users\YoupSuurmeijer\Documents\models\test\test_output',
                   os.path.basename(PATH_MODEL).split('.')[0])
@@ -56,7 +56,6 @@ if __name__ == '__main__':
         img = Image.open(image)
         # Create segmap
         segmap = model.run(img)[1]
-        print('Min/Max: ', np.min(segmap), np.max(segmap))
         overlay = SegmentationMapOnImage(segmap, shape=img.size).draw_on_image(np.array(img), alpha=0.75, resize="segmentation_map", colors=SEGMAP_COLORS)
         imgplot = plt.imshow(overlay[0])
         plt.legend(handles=legend_elements, bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
