@@ -10,13 +10,14 @@ class DeepLabModel(object):
 
   INPUT_TENSOR_NAME = 'ImageTensor:0'
   OUTPUT_TENSOR_NAME = 'SemanticPredictions:0'
-  INPUT_SIZE = 256
   FROZEN_GRAPH_NAME = 'frozen_inference_graph'
 
-  def __init__(self, tarball_path):
+  def __init__(self, tarball_path, input_size=512, logits = False):
     """Creates and loads pretrained deeplab.py model."""
     self.graph = tf.Graph()
-
+    self.input_size = input_size
+    if logits:
+      self.OUTPUT_TENSOR_NAME = 'ResizeBilinear_2:0'
     graph_def = None
     # Extract frozen graph from tar archive.
     tar_file = tarfile.open(tarball_path)
@@ -36,14 +37,6 @@ class DeepLabModel(object):
 
     self.sess = tf.Session(graph=self.graph)
 
-    # self.dgenerator = tf.keras.preprocessing.image.ImageDataGenerator(
-    #   rescale=1. / 255,
-    #   featurewise_center=False,
-    #   samplewise_center=True,
-    #   featurewise_std_normalization=False,
-    #   samplewise_std_normalization=True
-    # )
-
   def run(self, image):
     """Runs inference on a single image.
 
@@ -55,7 +48,7 @@ class DeepLabModel(object):
       seg_map: Segmentation map of `resized_image`.
     """
     width, height = image.size
-    resize_ratio = 1.0 * self.INPUT_SIZE / max(width, height)
+    resize_ratio = 1.0 * self.input_size / max(width, height)
     target_size = (int(resize_ratio * width), int(resize_ratio * height))
     resized_image = image.convert('RGB').resize(target_size, Image.ANTIALIAS)
 
