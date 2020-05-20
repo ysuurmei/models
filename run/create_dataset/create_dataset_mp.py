@@ -4,6 +4,7 @@ from PIL import Image
 import json
 import numpy as np
 import shutil
+import sys
 import progressbar
 from itertools import chain
 import multiprocessing
@@ -75,11 +76,15 @@ def create_deeplab_dataset_mp(model_version, root_folder, label_file, n_workers=
             print('Directory', directory, 'not found, creating directory....')
             os.makedirs(directory)
         else:
-            print('Directory', directory, 'already exists, clearing out existing files')
-            try:
-                shutil.rmtree(directory)
-            except:
-                pass
+            x = input('Directory '+ directory +' already exists, do you want to clear out existing files? [y|n]')
+            if x == 'y':
+                try:
+                    shutil.rmtree(directory)
+                except:
+                    pass
+            else:
+                print('Exiting')
+                sys.exit()
 
     # If version info is provided write info to text file in folder root directory
     if version_info:
