@@ -11,7 +11,7 @@ cd ..
 # Set working directory and version and iteration configs
 WORK_DIR='/home/ubuntu/data_imat/deeplab'
 MODEL_VERSION='v7'
-NUM_ITERATIONS=200000
+NUM_ITERATIONS=80000
 
 # Set up folder structure
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
@@ -33,7 +33,7 @@ python research/deeplab/train.py \
   --num_clones=2 \
   --save_summaries_secs=120\
   --dataset="imat_fashion" \
-  --train_split="train" \
+  --train_split="trainval" \
   --model_variant="mobilenet_v2" \
   --output_stride=16 \
   --train_crop_size=513,513 \
@@ -42,7 +42,7 @@ python research/deeplab/train.py \
   --end_learning_rate=0.000005 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
   --fine_tune_batch_norm=true \
-  --tf_initial_checkpoint="${WORK_DIR}/pretrained/deeplabv3_mnv2_pascal_trainval/model.ckpt-30000" \
+  --tf_initial_checkpoint="${WORK_DIR}/pretrained/deeplabv3_mnv2_imat/model.ckpt-250000" \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}" \
   --initialize_last_layer=False \
