@@ -10,8 +10,8 @@ cd ..
 
 # Set working directory and version and iteration configs
 WORK_DIR='/home/ubuntu/data_imat/deeplab'
-MODEL_VERSION='v7'
-NUM_ITERATIONS=80000
+MODEL_VERSION='v8'
+NUM_ITERATIONS=200000
 
 # Set up folder structure
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
@@ -33,20 +33,37 @@ python research/deeplab/train.py \
   --num_clones=2 \
   --save_summaries_secs=120\
   --dataset="imat_fashion" \
-  --train_split="trainval" \
-  --model_variant="mobilenet_v2" \
+  --train_split="train" \
+  --model_variant="xception_65" \
+  --atrous_rates=6 \
+  --atrous_rates=12 \
+  --atrous_rates=18 \
   --output_stride=16 \
-  --train_crop_size=513,513 \
-  --train_batch_size=4 \
+  --decoder_output_stride=4 \
+  --train_crop_size=257,257 \
+  --train_batch_size=16 \
   --base_learning_rate=0.0001 \
   --end_learning_rate=0.000005 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
   --fine_tune_batch_norm=true \
-  --tf_initial_checkpoint="${WORK_DIR}/pretrained/deeplabv3_mnv2_imat/model.ckpt-250000" \
+  --tf_initial_checkpoint="${WORK_DIR}/pretrained/deeplabv3_mnv2_pascal_trainval/model.ckpt-30000" \
   --train_logdir="${TRAIN_LOGDIR}" \
   --dataset_dir="${DATASET}" \
   --initialize_last_layer=False \
   --last_layers_contain_logits_only=False \
+  --label_weights=1 \
+  --label_weights=5 \
+  --label_weights=4 \
+  --label_weights=8 \
+  --label_weights=8 \
+  --label_weights=4 \
+  --label_weights=4 \
+  --label_weights=6 \
+  --label_weights=4 \
+  --label_weights=6 \
+  --label_weights=4 \
+  --label_weights=8 \
+
 
 CHECKPOINT_PATH="${TRAIN_LOGDIR}/model.ckpt-${NUM_ITERATIONS}"
 EXPORT_PATH="${TRAIN_LOGDIR}/frozen_inference_graph_${NUM_ITERATIONS}.pb"
@@ -56,10 +73,14 @@ python research/deeplab/export_model.py \
   --checkpoint_path="${CHECKPOINT_PATH}"  \
   --export_path="${EXPORT_PATH}" \
   --dataset="imat_fashion" \
-  --model_variant="mobilenet_v2" \
-  --crop_size=513 \
-  --crop_size=513 \
+  --model_variant="xception_65" \
+  --crop_size=257 \
+  --crop_size=257 \
+  --atrous_rates=6 \
+  --atrous_rates=12 \
+  --atrous_rates=18 \
   --output_stride=16 \
+  --decoder_output_stride=4 \
   --inference_scales=1.0 \
   --num_classes=12
 
