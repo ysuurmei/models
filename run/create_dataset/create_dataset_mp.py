@@ -146,7 +146,7 @@ if __name__ == '__main__':
 
     # Set the model version and data folder as environmental variables, so that we can pass them to the .sh script
     os.environ['DATA_FOLDER'] = '/home/ubuntu/data_imat'
-    os.environ['MODEL_VERSION'] = 'deeplab/v6'
+    os.environ['MODEL_VERSION'] = 'deeplab/v7'
 
     if not os.path.exists(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION'])):
         os.makedirs(os.path.join(os.environ['DATA_FOLDER'], os.environ['MODEL_VERSION']))
@@ -156,8 +156,8 @@ if __name__ == '__main__':
     IMAGE_FOLDER = os.path.join(os.environ['DATA_FOLDER'], 'train')
 
     # Set the parameters for the new dataset
-    SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
-             "skirt", "coat", "dress", "jumpsuit", "cape"]
+    SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "pants", "shorts",
+             "skirt", "coat", "dress", "jumpsuit"]
 
     TRAIN_VAL_SPLIT = [0.9, 0.1]
 

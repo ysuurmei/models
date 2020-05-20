@@ -10,8 +10,8 @@ cd ..
 
 # Set working directory and version and iteration configs
 WORK_DIR='/home/ubuntu/data_imat/deeplab'
-MODEL_VERSION='v6'
-NUM_ITERATIONS=350000
+MODEL_VERSION='v7'
+NUM_ITERATIONS=200000
 
 # Set up folder structure
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
@@ -30,12 +30,16 @@ cp run/training.sh "${DATASET_DIR}/training_settings.txt"
 # Run the python training script
 python research/deeplab/train.py \
   --logtostderr \
-  --num_clones=1 \
-  --save_summaries_secs=60\
+  --num_clones=4 \
+  --save_summaries_secs=120\
   --dataset="imat_fashion" \
   --train_split="train" \
-  --model_variant="mobilenet_v2" \
+  --model_variant="xception_65" \
+  --atrous_rates=6 \
+  --atrous_rates=12 \
+  --atrous_rates=18 \
   --output_stride=16 \
+  --decoder_output_stride=4 \
   --train_crop_size=513,513 \
   --train_batch_size=4 \
   --base_learning_rate=0.0001 \
@@ -47,21 +51,28 @@ python research/deeplab/train.py \
   --dataset_dir="${DATASET}" \
   --initialize_last_layer=False \
   --last_layers_contain_logits_only=False \
-  --label_weights=1 \
-  --label_weights=5 \
-  --label_weights=4 \
-  --label_weights=8 \
-  --label_weights=8 \
-  --label_weights=4 \
-  --label_weights=8 \
-  --label_weights=4 \
-  --label_weights=6 \
-  --label_weights=4 \
-  --label_weights=6 \
-  --label_weights=4 \
-  --label_weights=8 \
-  --label_weights=16 \
 
+CHECKPOINT_PATH="${TRAIN_LOGDIR}/model.ckpt-${NUM_ITERATIONS}"
+EXPORT_PATH="${TRAIN_LOGDIR}/frozen_inference_graph_${NUM_ITERATIONS}.pb"
 
+python research/deeplab/export_model.py \
+  --logtostderr \
+  --checkpoint_path="${CHECKPOINT_PATH}"  \
+  --export_path="${EXPORT_PATH}" \
+  --dataset="imat_fashion" \
+  --model_variant="xception_65" \
+  --crop_size=513 \
+  --crop_size=513 \
+  --atrous_rates=6 \
+  --atrous_rates=12 \
+  --atrous_rates=18 \
+  --output_stride=16 \
+  --decoder_output_stride=4 \
+  --inference_scales=1.0 \
+  --num_classes=12
 
+tar -czvf "${TRAIN_LOGDIR}/model_${MODEL_VERSION}_${CHECKPOINT}.tar.gz" "${CHECKPOINT_PATH}.data-00000-of-00001" \
+"${CHECKPOINT_PATH}.meta" "${CHECKPOINT_PATH}.index" "${EXPORT_PATH}"
 
+INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+aws ec2 stop-instances --instance-ids $INSTANCE_ID
