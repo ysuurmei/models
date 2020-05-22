@@ -3,8 +3,8 @@ export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 cd ..
 
 # Set up folder structure
-MODEL_VERSION="v7"
-CHECKPOINT="39883"
+MODEL_VERSION="v8"
+CHECKPOINT="79496"
 WORK_DIR="/home/ubuntu/data_imat/deeplab"
 DATASET_DIR="${WORK_DIR}/${MODEL_VERSION}"
 PQR_FOLDER="PQR"
