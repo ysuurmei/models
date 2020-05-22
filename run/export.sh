@@ -19,9 +19,14 @@ python research/deeplab/export_model.py \
   --checkpoint_path="${CHECKPOINT_PATH}"  \
   --export_path="${EXPORT_PATH}" \
   --dataset="imat_fashion" \
-  --model_variant="mobilenet_v2" \
-  --crop_size=513 \
-  --crop_size=513 \
+  --model_variant="xception_65" \
+  --crop_size=257 \
+  --crop_size=257 \
+  --atrous_rates=6 \
+  --atrous_rates=12 \
+  --atrous_rates=18 \
+  --output_stride=16 \
+  --decoder_output_stride=4 \
   --inference_scales=1.0 \
   --num_classes=12
 
