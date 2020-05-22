@@ -29,7 +29,7 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
     from matplotlib.patches import Patch
     import json
-    # from background_remover_mrcnn import BackgroundRemover
+    from background_remover_mrcnn import BackgroundRemover
 
     DATA_FOLDER = r'C:\Users\YoupSuurmeijer\Downloads\train'
     SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
@@ -48,7 +48,7 @@ if __name__ == '__main__':
         element = Patch(color=col, label=el)
         legend_elements.append(element)
 
-    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v8_79496.tar.gz'
+    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v8_93711.tar.gz'
     PATH_IMAGES = r'C:\Users\YoupSuurmeijer\Documents\models\test\test_images\new_set'
     PATH_OUTPUT = os.path.join(r'C:\Users\YoupSuurmeijer\Documents\models\test\test_output',
                   os.path.basename(PATH_MODEL).split('.')[0])
@@ -59,14 +59,14 @@ if __name__ == '__main__':
     model = DeepLabModel(PATH_MODEL, logits=True, input_size=256)
     os.chdir(PATH_IMAGES)
 
-    # bg_remover = BackgroundRemover(model=r'C:\Users\YoupSuurmeijer\Documents\VIPO-project\3. Production\models\deeplabv3_mnv2_pascal_trainval_2018_01_29.tar.gz')
+    bg_remover = BackgroundRemover(model=r'C:\Users\YoupSuurmeijer\Documents\VIPO-project\3. Production\models\deeplabv3_mnv2_pascal_trainval_2018_01_29.tar.gz')
 
 
     for image in progressbar(glob.glob('*.jpg')):
         img = Image.open(image)
         # Remove background
-        # img_no_bg = bg_remover.make_background_transparant(np.array(img))
-        # img_no_bg = Image.fromarray(img.astype('uint8'))
+        # img = bg_remover.make_background_transparant(np.array(img))
+        # img = Image.fromarray(img.astype('uint8'))
         # Create segmap
         start = datetime.now()
         image2, segmap, batch_segmap = model.run(img)
