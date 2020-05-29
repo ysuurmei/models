@@ -55,7 +55,9 @@ class DeepLabModel(object):
     batch_seg_map = self.sess.run(
         self.OUTPUT_TENSOR_NAME,
         feed_dict={self.INPUT_TENSOR_NAME: [np.asarray(resized_image)]}) # np.asarray(resized_image)
-    seg_map = batch_seg_map[0][:resized_image.size[1], :resized_image.size[0]]
+    seg_map = np.argmax(batch_seg_map[0], axis=2).astype(np.uint8)[:resized_image.size[1], :resized_image.size[0]]
+
+
     return resized_image, seg_map, batch_seg_map
 
 

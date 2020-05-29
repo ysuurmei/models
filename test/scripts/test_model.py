@@ -4,6 +4,7 @@ from PIL import Image
 from deeplab import DeepLabModel
 from datetime import datetime
 from operator import itemgetter
+import pandas as pd
 
 def make_tarfile(output_filename, source_dir):
     with tarfile.open(output_filename, "w:gz") as tar:
@@ -117,6 +118,20 @@ def convert_to_pil(image):
 
     return Image.fromarray(cv2.cvtColor(image.astype(np.uint8), cv2.COLOR_BGR2RGB))
 
+def filter_segmap(segmap, sets, th=None):
+    summary = pd.DataFrame.from_items(zip(['unique', 'counts'], np.unique(segmap, return_counts=True)))
+    for _set in sets:
+        subset = summary[summary.unique.isin(_set)]
+        if subset.shape[0] > 0:
+            set_max = subset.unique[subset.counts.idxmax()]
+            for i in _set-{set_max}:
+                segmap[segmap==i] = set_max
+        if th:
+            for row in summary.iterrows():
+                if row[1]['counts']/summary['counts'].sum() < th:
+                    segmap[segmap == row[1]['unique']] = 0
+    return segmap
+
 
 if __name__ == '__main__':
     import glob
@@ -132,8 +147,8 @@ if __name__ == '__main__':
     from body_extractor import BodyExtractor
 
     DATA_FOLDER = r'C:\Users\YoupSuurmeijer\Downloads\train'
-    SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "vest", "pants", "shorts",
-             "skirt", "coat", "dress", "jumpsuit", "cape"]
+    SUBSET = ["shirt, blouse", "top, t-shirt, sweatshirt", "sweater", "cardigan", "jacket", "pants", "shorts",
+             "skirt", "coat", "dress", "jumpsuit"]
 
     # Load the label descripions file and subset the dataset based on the label description indices
     with open(os.path.join(DATA_FOLDER, 'label_descriptions.json')) as json_data:
@@ -141,14 +156,71 @@ if __name__ == '__main__':
 
     subset_indices = [i['id'] for i in label_descriptions['categories'] if i['name'] in SUBSET]
 
+    labels = [
+        {
+            "id": 1,
+            "name": "shirt, blouse",
+            "supercategory": "upperbody"
+        },
+        {
+            "id": 2,
+            "name": "top, t-shirt, sweatshirt",
+            "supercategory": "upperbody"
+        },
+        {
+            "id": 3,
+            "name": "sweater",
+            "supercategory": "upperbody"
+        },
+        {
+            "id": 4,
+            "name": "cardigan",
+            "supercategory": "upperbody"
+        },
+        {
+            "id": 5,
+            "name": "jacket",
+            "supercategory": "upperbody"
+        },
+        {
+            "id": 6,
+            "name": "pants",
+            "supercategory": "lowerbody"
+        },
+        {
+            "id": 7,
+            "name": "shorts",
+            "supercategory": "lowerbody"
+        },
+        {
+            "id": 8,
+            "name": "skirt",
+            "supercategory": "lowerbody"
+        },
+        {
+            "id": 9,
+            "name": "coat",
+            "supercategory": "upperbody"
+        },
+        {
+            "id": 10,
+            "name": "dress",
+            "supercategory": "upperbody"
+        },
+        {
+            "id": 11,
+            "name": "jumpsuit",
+            "supercategory": "wholebody"
+        }
+    ]
     legend_elements = []
-    for idx, el in enumerate(SUBSET):
-        col=SEGMAP_COLORS[subset_indices[idx]+1]
+    for i in labels:
+        col=SEGMAP_COLORS[i['id']]
         col=tuple(ti/255 for ti in col)
-        element = Patch(color=col, label=el)
+        element = Patch(color=col, label=i['name'])
         legend_elements.append(element)
 
-    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v8_100000.tar.gz'
+    PATH_MODEL = r'C:\Users\YoupSuurmeijer\Documents\models\test\models\model_v8_130000.tar.gz'
     PATH_IMAGES = r'C:\Users\YoupSuurmeijer\Documents\models\test\test_images\new_set'
     PATH_OUTPUT = os.path.join(r'C:\Users\YoupSuurmeijer\Documents\models\test\test_output',
                   os.path.basename(PATH_MODEL).split('.')[0])
@@ -181,6 +253,10 @@ if __name__ == '__main__':
         # Create segmap
         start = datetime.now()
         image2, segmap, batch_segmap = model.run(img)
+        segmap = filter_segmap(segmap, [{1,2,3,4}, {8, 10}, {4,5,9}, {7,8}], th=None)
+        kernel = np.ones((3, 3), np.uint8)
+        segmap = cv2.erode(segmap, kernel, iterations=4)
+        segmap = cv2.dilate(segmap, kernel, iterations=4)
         print(datetime.now()-start)
         overlay = SegmentationMapOnImage(segmap, shape=segmap.shape).draw_on_image(np.array(image2), alpha=0.75, colors=SEGMAP_COLORS)
         imgplot = plt.imshow(overlay[0])
